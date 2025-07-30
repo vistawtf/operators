@@ -1,4 +1,4 @@
-import Cross from "../ui/svg/Cross";
+import CrossIcon from "../ui/svg/CrossIcon";
 
 interface HeaderProps {
   className?: string;
@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
       <div
         className="flex h-[40px] gap-[18px] 
-                   font-mono font-bold 
+                   font-geist-mono font-bold 
                    text-[14px] text-[var(--color-vista-black)]"
       >
         <button
@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                      flex justify-center items-center"
         >
           <p>ABOUT VISTA</p>
-          <Cross />
+          <CrossIcon />
         </button>
         <button
           className="w-[210px] h-full gap-[13px]
@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                      flex justify-center items-center"
         >
           FILL YOUR PROJECT
-          <Cross />
+          <CrossIcon />
         </button>
       </div>
     </header>
