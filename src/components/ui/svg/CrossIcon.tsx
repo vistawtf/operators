@@ -1,8 +1,8 @@
 import * as React from "react";
 
-type CrossProps = React.SVGProps<SVGSVGElement>;
+type CrossIconProps = React.SVGProps<SVGSVGElement>;
 
-const Cross: React.FC<CrossProps> = (props) => (
+const CrossIcon: React.FC<CrossIconProps> = (props) => (
   <svg
     width={13}
     height={12}
@@ -29,4 +29,4 @@ const Cross: React.FC<CrossProps> = (props) => (
     />
   </svg>
 );
-export default Cross;
+export default CrossIcon;
