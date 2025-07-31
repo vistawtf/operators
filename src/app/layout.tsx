@@ -33,19 +33,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${interSans.variable} ${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}
       >
         <div
           className="
-            w-full max-w-[1205px] h-screen 
-            mx-auto pt-[85px] pb-[119px] 
-            flex flex-col border border-red-500"
+            w-full max-w-[1205px] min-h-screen 
+            mx-auto pt-[85px]
+            flex flex-col"
         >
           <Header className="mb-[88px]" />
 
           {children}
 
-          <Footer className="mt-[106px]" />
+          <Footer />
         </div>
       </body>
     </html>
