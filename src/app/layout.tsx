@@ -37,7 +37,7 @@ export default function RootLayout({
       >
         <div
           className="
-            w-full max-w-[1205px] min-h-screen 
+            w-full max-w-[1205px] min-h-screen
             mx-auto pt-[85px]
             flex flex-col"
         >
@@ -45,7 +45,7 @@ export default function RootLayout({
 
           {children}
 
-          <Footer />
+          <Footer className="mt-[106px]" />
         </div>
       </body>
     </html>

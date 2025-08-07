@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import SearchIcon from "@/components/ui/svg/SearchIcon";
-import { Row } from "./OperatorDashboardTable";
+import { useEffect, useMemo, useState } from "react";
+
+import { Row } from ".";
+import { SearchIcon } from "@/components/ui/svg";
 
 interface OperatorDashboardFilterProps {
   items?: Row[];

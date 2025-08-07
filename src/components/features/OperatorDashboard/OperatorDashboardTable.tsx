@@ -11,10 +11,7 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 
-import CpuIcon from "@/components/ui/svg/CpuIcon";
-import RamIcon from "@/components/ui/svg/RamIcon";
-import StorageIcon from "@/components/ui/svg/StorageIcon";
-import WifiIcon from "@/components/ui/WifiIcon";
+import { CpuIcon, RamIcon, WifiIcon, StorageIcon } from "@/components/ui/svg";
 
 export interface Row {
   id: string;
@@ -89,8 +86,8 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
     const status = cellInfo.getValue() as Row["status"];
     const bgColor =
       status.toLowerCase() === "mainnet"
-        ? "bg-[var(--color-light-yellow)]"
-        : "bg-[var(--color-light-blue)]";
+        ? "bg-[var(--color-light-blue)]"
+        : "bg-[var(--color-light-yellow)]";
 
     return (
       <div className={`${bgColor} p-[4px] rounded-[8px] text-center`}>

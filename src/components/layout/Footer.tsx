@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 
 interface FooterProps {
@@ -46,15 +46,15 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           <div>
             <p className="text-[18px] mb-[8px]">ABOUT</p>
             <div className="font-medium text-[var(--color-light-gray)] text-[16px] space-y-[8px]">
-              <a href="/solutions" className="block hover:text-white">
+              <Link href="/solutions" className="block hover:text-white">
                 Solutions
-              </a>
-              <a href="/work" className="block hover:text-white">
+              </Link>
+              <Link href="/work" className="block hover:text-white">
                 Work
-              </a>
-              <a href="/team" className="block hover:text-white">
+              </Link>
+              <Link href="/team" className="block hover:text-white">
                 Team
-              </a>
+              </Link>
             </div>
           </div>
 

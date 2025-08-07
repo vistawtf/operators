@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import OperatorDashboardFilter from "./OperatorDashboardFilter";
-import OperatorDashboardHeader from "./OperatorDashboardHeader";
-import OperatorDashboardTable, { Row } from "./OperatorDashboardTable";
-import AztecIcon from "@/components/ui/svg/protocols/AztecIcon";
-import LidoIcon from "@/components/ui/svg/protocols/LidoIcon";
-import EigenDAIcon from "@/components/ui/svg/protocols/EigenDAIcon";
-import BuildernetIcon from "@/components/ui/svg/protocols/BuildernetIcon";
+
+import {
+  Row,
+  OperatorDashboardTable,
+  OperatorDashboardFilter,
+  OperatorDashboardHeader,
+} from ".";
+import {
+  LidoIcon,
+  AztecIcon,
+  EigenDAIcon,
+  BuildernetIcon,
+} from "@/components/ui/svg/protocols";
 
 export const dummyData: Row[] = [
   {
@@ -81,7 +87,7 @@ const OperatorDashboard: React.FC = () => {
         onFilter={setFilteredData}
       />
 
-      <OperatorDashboardTable className="mb-[106px]" data={filteredData} />
+      <OperatorDashboardTable data={filteredData} />
     </div>
   );
 };

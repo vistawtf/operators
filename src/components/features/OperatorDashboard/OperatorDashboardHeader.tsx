@@ -1,4 +1,4 @@
-import VistaIcon from "@/components/ui/svg/VistaIcon";
+import { VistaIcon } from "@/components/ui/svg";
 
 const OperatorDashboardHeader: React.FC = () => {
   return (
