@@ -14,70 +14,70 @@ const CpuIcon: React.FC<CpuIconProps> = (props) => (
     <g clipPath="url(#clip0_1405_2205)">
       <path
         d="M18.5 4.5H6.5C5.39543 4.5 4.5 5.39543 4.5 6.5V18.5C4.5 19.6046 5.39543 20.5 6.5 20.5H18.5C19.6046 20.5 20.5 19.6046 20.5 18.5V6.5C20.5 5.39543 19.6046 4.5 18.5 4.5Z"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M15.5 9.5H9.5V15.5H15.5V9.5Z"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M9.5 1.5V4.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M15.5 1.5V4.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M9.5 20.5V23.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M15.5 20.5V23.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M20.5 9.5H23.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M20.5 14.5H23.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M1.5 9.5H4.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M1.5 14.5H4.5"
-        stroke="#E4E2D8"
+        stroke={`${props.stroke ? props.stroke : "#E4E2D8"}`}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
