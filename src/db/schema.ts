@@ -10,7 +10,6 @@ import {
   uniqueIndex,
   smallint,
   integer,
-  numeric,
 } from "drizzle-orm/pg-core";
 
 export const tierE           = pgEnum('tier_e', ["recommended", "minimum"]) // prettier-ignore
@@ -88,7 +87,6 @@ export const hardware = pgTable(
     iopsWrite: integer("iops_write"),
     upMbps: integer("up_mbps"),
     downMbps: integer("down_mbps"),
-    monthlyDataTb: numeric("monthly_data_tb", { precision: 10, scale: 2 }),
     staticIpPreferred: boolean("static_ip_preferred").notNull().default(false),
     upsRequired: boolean("ups_required").notNull().default(false),
     notes: text("notes"),
