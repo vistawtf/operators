@@ -6,10 +6,14 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "drizzle:gen": "drizzle-kit generate --config=drizzle.config.ts",
+    "drizzle:push": "drizzle-kit push --config=drizzle.config.ts",
+    "seed:tags": "tsx src/db/seeds/seed-tags.ts"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
+    "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
     "next": "15.4.4",
     "postgres": "^3.4.7",
