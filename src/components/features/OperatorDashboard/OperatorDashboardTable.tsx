@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ColumnDef,
@@ -19,6 +20,7 @@ export interface Row {
     icon: React.ReactNode;
     name: string;
     url: string;
+    protocolId?: string;
   };
   category: string[];
   status: string;
@@ -53,14 +55,19 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
     return (
       <div className="flex items-center gap-[10px]">
         {project.icon}
-        <span>
-          <p className="font-geist-sans font-medium text-[16px]">
-            {project.name}
-          </p>
+        <div>
+          <Link 
+            href={`/${project.protocolId || project.name.toLowerCase()}`}
+            className="hover:opacity-80 transition-opacity"
+          >
+            <p className="font-geist-sans font-medium text-[16px] cursor-pointer">
+              {project.name}
+            </p>
+          </Link>
           <p className="font-geist-mono font-medium text-[var(--color-light-gray)] text-[12px]">
             {project.url}
           </p>
-        </span>
+        </div>
       </div>
     );
   };
@@ -212,7 +219,7 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
             <tr
               key={row.id}
               className="cursor-pointer"
-              onClick={() => router.push(row.original.project.url)}
+              onClick={() => router.push(`/${row.original.project.protocolId || row.original.project.name.toLowerCase()}`)}
             >
               {row.getVisibleCells().map((cell) => (
                 <td

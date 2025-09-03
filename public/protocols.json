@@ -1,0 +1,162 @@
+{
+  "protocols": [
+    {
+      "id": "aztec",
+      "name": "Aztec",
+      "website": "https://aztec.network",
+      "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs.",
+      "documentation": "https://docs.aztec.network",
+      "isActive": true,
+      "tags": ["L2", "Privacy", "ZK"],
+      "opportunities": [
+        {
+          "id": "aztec-prover",
+          "type": "prover",
+          "status": "testnet",
+          "requirements": [
+            {
+              "tier": "recommended",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 32,
+                "storageGb": 1000,
+                "storageMedia": "NVME",
+                "iopsRead": 50000,
+                "iopsWrite": 30000,
+                "upMbps": 100,
+                "downMbps": 100,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": "GPU acceleration recommended for proving"
+              }
+            },
+            {
+              "tier": "minimum",
+              "entry": "permissionless", 
+              "hardware": {
+                "cpuCores": 4,
+                "ramGb": 16,
+                "storageGb": 500,
+                "storageMedia": "SSD",
+                "iopsRead": 20000,
+                "iopsWrite": 15000,
+                "upMbps": 50,
+                "downMbps": 50,
+                "staticIpPreferred": false,
+                "upsRequired": false,
+                "notes": "Basic setup for testing"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lido",
+      "name": "Lido",
+      "website": "https://lido.fi",
+      "description": "Lido is a liquid staking protocol that allows users to stake their ETH while maintaining liquidity through stETH tokens. As a validator operator for Lido, you help secure the Ethereum network while earning staking rewards. Lido democratizes access to Ethereum staking by removing the 32 ETH minimum requirement and technical barriers.",
+      "documentation": "https://docs.lido.fi",
+      "isActive": true,
+      "tags": ["LST", "Staking"],
+      "opportunities": [
+        {
+          "id": "lido-validator",
+          "type": "validator",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "recommended",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 32,
+                "storageGb": 2000,
+                "storageMedia": "NVME",
+                "iopsRead": 80000,
+                "iopsWrite": 50000,
+                "upMbps": 100,
+                "downMbps": 100,
+                "staticIpPreferred": true,
+                "upsRequired": true,
+                "notes": "Requires 32 ETH stake"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eigenda",
+      "name": "EigenDA", 
+      "website": "https://eigenda.xyz",
+      "description": "EigenDA is a data availability layer built on EigenLayer, providing highly scalable and secure data storage for rollups and other blockchain applications. As an EigenDA operator, you contribute to the network's data availability infrastructure while earning rewards through restaking mechanisms. The protocol leverages Ethereum's security through EigenLayer's restaking primitive.",
+      "documentation": "https://docs.eigenda.xyz",
+      "isActive": true,
+      "tags": ["DA", "AVS"],
+      "opportunities": [
+        {
+          "id": "eigenda-operator",
+          "type": "validator",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "recommended",
+              "entry": "permissioned",
+              "hardware": {
+                "cpuCores": 16,
+                "ramGb": 64,
+                "storageGb": 4000,
+                "storageMedia": "NVME",
+                "iopsRead": 100000,
+                "iopsWrite": 80000,
+                "upMbps": 1000,
+                "downMbps": 1000,
+                "staticIpPreferred": true,
+                "upsRequired": true,
+                "notes": "Must be in top 200 operators by stake"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "buildernet",
+      "name": "Buildernet",
+      "website": "https://buildernet.org", 
+      "description": "Buildernet is an MEV-focused Layer 2 solution designed to optimize transaction ordering and maximize value extraction opportunities. Operators run sequencers that efficiently order transactions while capturing MEV rewards. The protocol aims to create a more efficient and profitable environment for both users and operators in the MEV landscape.",
+      "documentation": "https://docs.buildernet.org",
+      "isActive": true,
+      "tags": ["L2", "MEV"],
+      "opportunities": [
+        {
+          "id": "buildernet-sequencer",
+          "type": "sequencer",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 4,
+                "ramGb": 8,
+                "storageGb": 1000,
+                "storageMedia": "SSD",
+                "iopsRead": 25000,
+                "iopsWrite": 20000,
+                "upMbps": 100,
+                "downMbps": 100,
+                "staticIpPreferred": false,
+                "upsRequired": false,
+                "notes": "No stake required"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "2024-01-15T10:00:00Z"
+}
