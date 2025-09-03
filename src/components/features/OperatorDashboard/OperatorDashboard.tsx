@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Row,
@@ -14,68 +14,77 @@ import {
   EigenDAIcon,
   BuildernetIcon,
 } from "@/components/ui/svg/protocols";
+import { fetchProtocols, transformToTableRows } from "@/lib/data";
 
-export const dummyData: Row[] = [
-  {
-    id: "1",
-    project: { icon: <AztecIcon />, name: "Aztec", url: "aztec.network" },
-    category: ["L2"],
-    status: "Testnet",
-    entry: { type: "Permissionless", condition: "NO STAKE" },
-    hardware: {
-      cpu: "4 cores",
-      ram: "8GB",
-      storage: "2TB",
-      bandwith: "100Mbps",
-    },
-  },
-  {
-    id: "2",
-    project: { icon: <LidoIcon />, name: "Lido", url: "lido.fi" },
-    category: ["LST"],
-    status: "Mainnet",
-    entry: { type: "Permissionless", condition: "1.3 ETH" },
-    hardware: {
-      cpu: "8 cores",
-      ram: "16GB",
-      storage: "2TB",
-      bandwith: "100Mbps",
-    },
-  },
-  {
-    id: "3",
-    project: { icon: <EigenDAIcon />, name: "EigenDA", url: "eigenda.xyz" },
-    category: ["DA", "AVS"],
-    status: "Mainnet",
-    entry: { type: "Permissioned", condition: "TOP 200 STAKE" },
-    hardware: {
-      cpu: "8 cores",
-      ram: "16GB",
-      storage: "2TB",
-      bandwith: "100Mbps",
-    },
-  },
-  {
-    id: "4",
-    project: {
-      icon: <BuildernetIcon />,
-      name: "Buildernet",
-      url: "buildernet.org",
-    },
-    category: ["L2", "MEV"],
-    status: "Mainnet",
-    entry: { type: "Permissionless", condition: "NO STAKE" },
-    hardware: {
-      cpu: "2 cores",
-      ram: "4GB",
-      storage: "2TB",
-      bandwith: "100Mbps",
-    },
-  },
-];
+// Map protocol IDs to icons
+const protocolIcons: Record<string, React.ReactNode> = {
+  aztec: <AztecIcon />,
+  lido: <LidoIcon />,
+  eigenda: <EigenDAIcon />,
+  buildernet: <BuildernetIcon />,
+};
 
 const OperatorDashboard: React.FC = () => {
-  const [filteredData, setFilteredData] = useState<Row[]>(dummyData);
+  const [allData, setAllData] = useState<Row[]>([]);
+  const [filteredData, setFilteredData] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true);
+        const protocols = await fetchProtocols();
+        
+        // Transform to table format and add proper icons
+        const tableData = transformToTableRows(protocols).map(row => ({
+          ...row,
+          project: {
+            ...row.project,
+            icon: protocolIcons[row.project.protocolId || ''] || 
+                  <div className="w-6 h-6 bg-gray-400 rounded-full" />
+          }
+        }));
+        
+        setAllData(tableData);
+        setFilteredData(tableData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load data');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col">
+        <OperatorDashboardHeader />
+        <div className="mt-[40px] flex items-center justify-center py-12">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
+            <p className="text-white/60">Loading protocols...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col">
+        <OperatorDashboardHeader />
+        <div className="mt-[40px] flex items-center justify-center py-12">
+          <div className="text-center">
+            <p className="text-red-400 mb-2">Failed to load protocols</p>
+            <p className="text-white/60 text-sm">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
@@ -83,7 +92,7 @@ const OperatorDashboard: React.FC = () => {
 
       <OperatorDashboardFilter
         className="mt-[40px] mb-[24px]"
-        items={dummyData}
+        items={allData}
         onFilter={setFilteredData}
       />
 

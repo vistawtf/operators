@@ -19,6 +19,7 @@ export interface Row {
     icon: React.ReactNode;
     name: string;
     url: string;
+    protocolId?: string;
   };
   category: string[];
   status: string;

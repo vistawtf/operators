@@ -1,25 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-type Opp = { id: string; type: string; status: string };
-type Detail = {
-  requirementId: string;
-  tier: string;
-  entry: string;
-  hwId: string | null;
-  cpuCores: number | null;
-  ramGb: number | null;
-  storageGb: number | null;
-  storageMedia: string | null;
-  iopsRead: number | null;
-  iopsWrite: number | null;
-  upMbps: number | null;
-  downMbps: number | null;
-  staticIpPreferred: boolean | null;
-  upsRequired: boolean | null;
-  notes: string | null;
-};
+import { fetchProtocols, Protocol, Requirement } from "@/lib/data";
 
 interface AdminDashboardExpandRowProps {
   projectId: string;
@@ -28,86 +10,82 @@ interface AdminDashboardExpandRowProps {
 const AdminDashboardExpandRow: React.FC<AdminDashboardExpandRowProps> = ({
   projectId,
 }) => {
-  const [opps, setOpps] = useState<Opp[] | null>(null);
+  const [protocol, setProtocol] = useState<Protocol | null>(null);
   const [selectedOppId, setSelectedOppId] = useState("");
-  const [details, setDetails] = useState<Detail[] | null>(null);
-  const [loadingOpps, setLoadingOpps] = useState(false);
-  const [loadingDetails, setLoadingDetails] = useState(false);
+  const [selectedRequirements, setSelectedRequirements] = useState<Requirement[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-
-    (async () => {
-      setLoadingOpps(true);
-
+    async function loadData() {
       try {
-        const res = await fetch(`/api/opportunities?projectId=${projectId}`, {
-          cache: "no-store",
-        });
-        if (!res.ok) throw new Error("Failed to load opportunities");
-
-        const data: Opp[] = await res.json();
-        if (!cancelled) {
-          setOpps(data);
-          setSelectedOppId(data?.[0]?.id ?? "");
+        setLoading(true);
+        const protocols = await fetchProtocols();
+        const foundProtocol = protocols.find(p => p.id === projectId);
+        
+        if (foundProtocol) {
+          setProtocol(foundProtocol);
+          if (foundProtocol.opportunities.length > 0) {
+            const firstOpp = foundProtocol.opportunities[0];
+            setSelectedOppId(firstOpp.id);
+            setSelectedRequirements(firstOpp.requirements);
+          }
+        } else {
+          setError("Protocol not found");
         }
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (e: any) {
-        if (!cancelled) setError(e?.message ?? "Failed to load opportunities");
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load data');
       } finally {
-        if (!cancelled) setLoadingOpps(false);
+        setLoading(false);
       }
-    })();
+    }
 
-    return () => {
-      cancelled = true;
-    };
+    loadData();
   }, [projectId]);
 
   useEffect(() => {
-    if (!selectedOppId) {
-      setDetails(null);
+    if (!protocol || !selectedOppId) {
+      setSelectedRequirements([]);
       return;
     }
 
-    let cancelled = false;
+    const opportunity = protocol.opportunities.find(opp => opp.id === selectedOppId);
+    if (opportunity) {
+      setSelectedRequirements(opportunity.requirements);
+    }
+  }, [selectedOppId, protocol]);
 
-    (async () => {
-      setLoadingDetails(true);
+  if (loading) {
+    return (
+      <div className="p-4">
+        <div className="text-sm opacity-70">Loading protocol data…</div>
+      </div>
+    );
+  }
 
-      try {
-        const res = await fetch(
-          `/api/opportunity-details?opportunityId=${selectedOppId}`,
-          { cache: "no-store" }
-        );
+  if (error) {
+    return (
+      <div className="p-4">
+        <div className="text-sm text-red-500">{error}</div>
+      </div>
+    );
+  }
 
-        if (!res.ok) throw new Error("Failed to load details");
-        const data: Detail[] = await res.json();
-
-        if (!cancelled) setDetails(data);
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (e: any) {
-        if (!cancelled) setError(e?.message ?? "Failed to load details");
-      } finally {
-        if (!cancelled) setLoadingDetails(false);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedOppId]);
+  if (!protocol) {
+    return (
+      <div className="p-4">
+        <div className="text-sm opacity-70">Protocol not found</div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 space-y-4">
       <div className="flex items-center gap-3">
         <label className="text-sm font-medium">Opportunity</label>
-        {loadingOpps ? (
-          <span className="text-sm opacity-70">Loading…</span>
-        ) : opps && opps.length ? (
+        {protocol.opportunities.length === 0 ? (
+          <span className="text-sm opacity-70">No opportunities</span>
+        ) : (
           <select
             value={selectedOppId}
             onChange={(e) => setSelectedOppId(e.target.value)}
@@ -116,65 +94,58 @@ const AdminDashboardExpandRow: React.FC<AdminDashboardExpandRowProps> = ({
               "px-3 py-2 outline-none focus:ring-2 focus:ring-white/20",
             ].join(" ")}
           >
-            {opps.map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.type} · {o.status}
+            {protocol.opportunities.map((opp) => (
+              <option key={opp.id} value={opp.id}>
+                {opp.type} · {opp.status}
               </option>
             ))}
           </select>
-        ) : (
-          <span className="text-sm opacity-70">No opportunities</span>
         )}
       </div>
 
-      {error && <div className="text-sm text-red-500">{error}</div>}
-      {loadingDetails && (
-        <div className="text-sm opacity-70">Loading details…</div>
+      {selectedRequirements.length > 0 && (
+        <div className="space-y-3">
+          {selectedRequirements.map((req, index) => (
+            <div
+              key={`${selectedOppId}-${req.tier}-${req.entry}-${index}`}
+              className="rounded-2xl border border-white/10 bg-white/5 p-3 md:p-4"
+            >
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <span>Requirement:</span>
+                <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs uppercase">
+                  {req.tier}
+                </span>
+                <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs uppercase">
+                  {req.entry}
+                </span>
+              </div>
+
+              <div className="mt-3 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                <Field label="CPU Cores" value={req.hardware.cpuCores} />
+                <Field label="RAM (GB)" value={req.hardware.ramGb} />
+                <Field label="Storage (GB)" value={req.hardware.storageGb} />
+                <Field label="Storage Media" value={req.hardware.storageMedia} />
+                <Field label="IOPS Read" value={req.hardware.iopsRead || "—"} />
+                <Field label="IOPS Write" value={req.hardware.iopsWrite || "—"} />
+                <Field label="Up (Mbps)" value={req.hardware.upMbps} />
+                <Field label="Down (Mbps)" value={req.hardware.downMbps} />
+                <Field
+                  label="Static IP Pref."
+                  value={req.hardware.staticIpPreferred ? "Yes" : "No"}
+                />
+                <Field
+                  label="UPS Required"
+                  value={req.hardware.upsRequired ? "Yes" : "No"}
+                />
+                <Field label="Notes" value={req.hardware.notes || "—"} />
+              </div>
+            </div>
+          ))}
+        </div>
       )}
 
-      {!loadingDetails && details && (
-        <div className="space-y-3">
-          {details.length === 0 ? (
-            <div className="text-sm opacity-70">No requirements yet.</div>
-          ) : (
-            details.map((d) => (
-              <div
-                key={d.requirementId}
-                className="rounded-2xl border border-white/10 bg-white/5 p-3 md:p-4"
-              >
-                <div className="flex items-center gap-2 text-sm font-medium">
-                  <span>Requirement:</span>
-                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs uppercase">
-                    {d.tier}
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs uppercase">
-                    {d.entry}
-                  </span>
-                </div>
-
-                <div className="mt-3 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                  <Field label="CPU Cores" value={d.cpuCores} />
-                  <Field label="RAM (GB)" value={d.ramGb} />
-                  <Field label="Storage (GB)" value={d.storageGb} />
-                  <Field label="Storage Media" value={d.storageMedia} />
-                  <Field label="IOPS Read" value={d.iopsRead} />
-                  <Field label="IOPS Write" value={d.iopsWrite} />
-                  <Field label="Up (Mbps)" value={d.upMbps} />
-                  <Field label="Down (Mbps)" value={d.downMbps} />
-                  <Field
-                    label="Static IP Pref."
-                    value={d.staticIpPreferred ? "Yes" : "No"}
-                  />
-                  <Field
-                    label="UPS Required"
-                    value={d.upsRequired ? "Yes" : "No"}
-                  />
-                  <Field label="Notes" value={d.notes} />
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+      {selectedRequirements.length === 0 && (
+        <div className="text-sm opacity-70">No requirements for this opportunity.</div>
       )}
     </div>
   );

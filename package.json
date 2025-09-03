@@ -6,20 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "drizzle:gen": "drizzle-kit generate --config=drizzle.config.ts",
-    "drizzle:push": "drizzle-kit push --config=drizzle.config.ts",
-    "seed:tags": "tsx src/db/seeds/seed-tags.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
-    "dotenv": "^17.2.1",
-    "drizzle-orm": "^0.44.4",
     "next": "15.4.4",
-    "postgres": "^3.4.7",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "zod": "^4.0.17"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -27,11 +20,9 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "drizzle-kit": "^0.31.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.4",
     "tailwindcss": "^4",
-    "tsx": "^4.20.4",
     "typescript": "^5"
   }
 }
