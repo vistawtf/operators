@@ -55,17 +55,19 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
     return (
       <div className="flex items-center gap-[10px]">
         {project.icon}
-        <Link 
-          href={`/${project.protocolId || project.name.toLowerCase()}`}
-          className="hover:opacity-80 transition-opacity"
-        >
-          <p className="font-geist-sans font-medium text-[16px] cursor-pointer">
-            {project.name}
-          </p>
+        <div>
+          <Link 
+            href={`/${project.protocolId || project.name.toLowerCase()}`}
+            className="hover:opacity-80 transition-opacity"
+          >
+            <p className="font-geist-sans font-medium text-[16px] cursor-pointer">
+              {project.name}
+            </p>
+          </Link>
           <p className="font-geist-mono font-medium text-[var(--color-light-gray)] text-[12px]">
             {project.url}
           </p>
-        </Link>
+        </div>
       </div>
     );
   };
@@ -217,7 +219,7 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
             <tr
               key={row.id}
               className="cursor-pointer"
-              onClick={() => router.push(row.original.project.url)}
+              onClick={() => router.push(`/${row.original.project.protocolId || row.original.project.name.toLowerCase()}`)}
             >
               {row.getVisibleCells().map((cell) => (
                 <td
