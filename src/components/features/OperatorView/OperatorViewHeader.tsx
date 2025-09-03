@@ -3,34 +3,34 @@ import Link from "next/link";
 import {
   WebIcon,
   DocsIcon,
-  TwitterIcon,
   NavigationIcon,
 } from "@/components/ui/svg";
+import { Protocol } from "@/lib/data";
 
 interface OperatorViewHeaderProps {
   className?: string;
+  protocol: Protocol;
 }
 
 const OperatorViewHeader: React.FC<OperatorViewHeaderProps> = ({
   className,
+  protocol,
 }) => {
+  // Get the first opportunity's status for display
+  const status = protocol.opportunities[0]?.status || "testnet";
+  const primaryTag = protocol.tags[0] || "Protocol";
+  
   const links = {
-    twitter: {
-      icon: <TwitterIcon />,
-      url: "x.com",
-    },
     website: {
       icon: <WebIcon />,
-      url: "google.com",
+      url: protocol.website,
     },
     docs: {
       icon: <DocsIcon />,
-      url: "wikipedia.com",
+      url: protocol.documentation,
     },
   };
 
-  const tag = "L2";
-  const status = "testnet";
   const bgColor =
     status.toLowerCase() === "mainnet"
       ? "bg-[var(--color-light-blue)]"
@@ -60,7 +60,7 @@ const OperatorViewHeader: React.FC<OperatorViewHeaderProps> = ({
             className="px-[10px] py-[5.5px]
                        border border-[var(--color-light-gray) rounded-[5px]"
           >
-            <p className="font-geist-mono text-[14px]">{tag}</p>
+            <p className="font-geist-mono text-[14px]">{primaryTag}</p>
           </div>
         </div>
 
@@ -73,7 +73,7 @@ const OperatorViewHeader: React.FC<OperatorViewHeaderProps> = ({
                          font-medium text-[16px] font-geist-mono text-[var(--color-light-gray)]"
             >
               {icon}
-              <a href={url} target="_blank" rel="noopener noreferrer">
+              <a href={url.startsWith('http') ? url : `https://${url}`} target="_blank" rel="noopener noreferrer">
                 {name.toUpperCase()}
               </a>
             </div>

@@ -1,26 +1,25 @@
 import { CodeIcon } from "@/components/ui/svg";
 import { OperatorViewRequirements } from ".";
+import { Protocol } from "@/lib/data";
 
 interface OperatorViewContentProps {
   className?: string;
+  protocol: Protocol;
 }
 
 const OperatorViewContent: React.FC<OperatorViewContentProps> = ({
   className,
+  protocol,
 }) => {
   return (
     <div className={`${className} flex flex-col`}>
-      <p className="font-medium text-[61px]">Aztec</p>
+      <p className="font-medium text-[61px]">{protocol.name}</p>
 
       <p className="text-[20px] text-[var(--color-light-gray)] text-justify">
-        Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its
-        primary purpose is to bring privacy to the otherwise publicly visible
-        transactions on the Ethereum blockchain. Aztec achieves this by
-        operating as a new alternative virtual machine (alt-VM), diverging from
-        EVM compatibility to extend the Ethereum ecosystem.
+        {protocol.description}
       </p>
 
-      <OperatorViewRequirements className="my-[40px]" />
+      <OperatorViewRequirements className="my-[40px]" protocol={protocol} />
 
       <div className="space-y-[32px]">
         <p className="text-[32px] text-white font-medium">Docs & Integration</p>

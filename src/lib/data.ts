@@ -48,6 +48,7 @@ interface ProtocolsResponse {
 // Cache the data for the session
 let cachedData: ProtocolsResponse | null = null;
 
+// Client-side data fetching
 export async function fetchProtocols(): Promise<Protocol[]> {
   if (cachedData) {
     return cachedData.protocols;

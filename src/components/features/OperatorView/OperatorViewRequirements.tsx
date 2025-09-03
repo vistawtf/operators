@@ -5,20 +5,32 @@ import {
   UnlockIcon,
   WifiIcon,
 } from "@/components/ui/svg";
+import { Protocol } from "@/lib/data";
 
 interface OperatorViewRequirementsProps {
   className?: string;
+  protocol: Protocol;
 }
 
 const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
   className,
+  protocol,
 }) => {
+  // Get the minimum hardware requirements from the first opportunity
+  const minRequirement = protocol.opportunities[0]?.requirements?.find(req => req.tier === "minimum") || 
+                         protocol.opportunities[0]?.requirements?.[0];
+  
+  const hardware = minRequirement?.hardware;
+  
   const specs = [
-    { Icon: CpuIcon, value: "8 cores", label: "CPU" },
-    { Icon: RamIcon, value: "16GB", label: "RAM" },
-    { Icon: StorageIcon, value: "2TB", label: "STORAGE" },
-    { Icon: WifiIcon, value: "100 Mbps", label: "BANDWIDTH" },
+    { Icon: CpuIcon, value: `${hardware?.cpuCores || 4} cores`, label: "CPU" },
+    { Icon: RamIcon, value: `${hardware?.ramGb || 8}GB`, label: "RAM" },
+    { Icon: StorageIcon, value: `${Math.round((hardware?.storageGb || 1000) / 1000)}TB`, label: "STORAGE" },
+    { Icon: WifiIcon, value: `${hardware?.upMbps || 100} Mbps`, label: "BANDWIDTH" },
   ];
+
+  const entryType = minRequirement?.entry || "permissionless";
+  const isPermissionless = entryType === "permissionless";
 
   return (
     <div className={`${className} flex gap-[32px]`}>
@@ -52,14 +64,18 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
                        bg-[var(--color-ultra-gray)] rounded-[4px]"
         >
           <div className="flex items-center gap-[16px]">
-            <UnlockIcon stroke="var(--color-medium-lime)" />
+            <UnlockIcon stroke={isPermissionless ? "var(--color-medium-lime)" : "var(--color-light-yellow)"} />
             <p className="font-geist-mono font-medium text-[20px] text-white">
-              PERMISIONLESS
+              {entryType.toUpperCase()}
             </p>
           </div>
 
           <p className="font-[var(--color-light-gray)] text-justify">
-            No specific stake or approval needed to participate
+            {isPermissionless 
+              ? "No specific stake or approval needed to participate"
+              : "Requires permission or specific criteria to participate"
+            }
+            {hardware?.notes && ` - ${hardware.notes}`}
           </p>
         </div>
       </div>

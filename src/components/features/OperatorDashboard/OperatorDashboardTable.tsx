@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ColumnDef,
@@ -54,14 +55,17 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
     return (
       <div className="flex items-center gap-[10px]">
         {project.icon}
-        <span>
-          <p className="font-geist-sans font-medium text-[16px]">
+        <Link 
+          href={`/${project.protocolId || project.name.toLowerCase()}`}
+          className="hover:opacity-80 transition-opacity"
+        >
+          <p className="font-geist-sans font-medium text-[16px] cursor-pointer">
             {project.name}
           </p>
           <p className="font-geist-mono font-medium text-[var(--color-light-gray)] text-[12px]">
             {project.url}
           </p>
-        </span>
+        </Link>
       </div>
     );
   };
