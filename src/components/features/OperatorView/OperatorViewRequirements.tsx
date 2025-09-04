@@ -53,18 +53,18 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
   const isPermissionless = entryType === "permissionless";
 
   return (
-    <div className={`${className} flex gap-[32px]`}>
-      <div className="w-[50%] flex flex-col gap-[32px]">
+    <div className={`${className} flex flex-col xl:flex-row gap-[32px]`}>
+      <div className="w-full xl:w-[50%] flex flex-col gap-[32px]">
         {hardwareRequirements.map(({ title, specs }) => (
           <div key={title} className="flex flex-col gap-[32px]">
             <p className="font-medium text-[32px] font-geist-sans text-white">{title}</p>
             
             <div
-              className="h-[158px] grid grid-cols-2 grid-rows-2 gap-x-[32px] gap-y-[29px] px-[52px] py-[30px] 
+              className="h-[158px] grid grid-cols-2 grid-rows-2 gap-x-[16px] xl:gap-x-[32px] gap-y-[29px] px-4 xl:px-[52px] py-[30px]
                          bg-[var(--color-ultra-gray)] rounded-[4px]"
             >
               {specs.map(({ Icon, value, label }) => (
-                <div key={label} className="flex items-center gap-[10px] h-full">
+                <div key={label} className="flex items-center gap-[8px] xl:gap-[10px] h-full justify-center xl:justify-start">
                   <Icon stroke="var(--color-light-blue)" />
 
                   <div className="leading-none">
@@ -80,11 +80,11 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
         ))}
       </div>
 
-      <div className="w-[50%] flex flex-col gap-[32px]">
+      <div className="w-full xl:w-[50%] flex flex-col gap-[32px]">
         <p className="font-medium font-geist-sans text-[32px] text-white">Entry Requirements</p>
 
         <div
-          className="h-[158px] flex flex-col gap-[16px] px-[75px] py-[30px]
+          className="h-[158px] flex flex-col gap-[16px] px-6 xl:px-[75px] py-[30px]
                        bg-[var(--color-ultra-gray)] rounded-[4px]"
         >
           <div className="flex items-center gap-[16px]">

@@ -26,10 +26,10 @@ const OperatorViewContent: React.FC<OperatorViewContentProps> = ({
 
         <div className="space-y-[16px]">
           {protocol.docsIntegration?.map((item, index) => (
-            <div key={index} className="flex items-center gap-[14px]">
+            <div key={index} className="flex items-start gap-[14px]">
               <CodeIcon
                 stroke="var(--color-light-purple)"
-                className="flex-shrink-0"
+                className="flex-shrink-0 mt-1"
               />
               <p className="text-justify text-[20px] font-geist-sans text-[var(--color-light-gray)]">
                 {item.text}
