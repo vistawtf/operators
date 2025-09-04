@@ -17,7 +17,7 @@ function drawPlasma(t: number) {
 
   const windowWidth = Math.min(window.screen.width, window.innerWidth);
   const width = windowWidth / 10;
-  const height = 1000 / 20;
+  const height = 500 / 20;
 
   for (let x = 0; x < height; x++) {
     for (let y = 0; y < width; y++) {
@@ -44,8 +44,8 @@ export function Plasma({ children }: { children?: React.ReactNode }) {
 
   return (
     <div
-      style={{ overflow: 'hidden', maxWidth: '100dvw' }}
-      className="relative h-[800px] border-t border-white/20"
+      style={{ overflow: 'hidden', maxWidth: '100vw' }}
+      className="relative h-[400px] border-t border-white/20 w-screen"
     >
       <div className="absolute bg-gradient-to-b from-black/50 via-black/85 to-black w-full h-full" />
       <pre
