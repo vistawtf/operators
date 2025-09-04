@@ -10,7 +10,12 @@ export interface Protocol {
   documentation: string;
   isActive: boolean;
   tags: string[];
+  docsIntegration: DocsIntegrationItem[];
   opportunities: Opportunity[];
+}
+
+export interface DocsIntegrationItem {
+  text: string;
 }
 
 export interface Opportunity {

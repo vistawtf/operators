@@ -8,6 +8,14 @@
       "documentation": "https://docs.aztec.network",
       "isActive": true,
       "tags": ["L2", "Privacy", "ZK"],
+      "docsIntegration": [
+        {
+          "text": "Official documentation for operators (running sequencers, full nodes, provers) is available"
+        },
+        {
+          "text": "Integrations/tools include Aztec.js (library to interact with contracts) and Aztec.nr (Noir framework for private smart contracts). The network uses Noir for zk circuits."
+        }
+      ],
       "opportunities": [
         {
           "id": "aztec-prover",
@@ -60,6 +68,14 @@
       "documentation": "https://docs.lido.fi",
       "isActive": true,
       "tags": ["LST", "Staking"],
+      "docsIntegration": [
+        {
+          "text": "Official validator operator documentation covers node setup, key management, and monitoring requirements"
+        },
+        {
+          "text": "Lido SDK and APIs available for integration with staking infrastructure and reward distribution systems"
+        }
+      ],
       "opportunities": [
         {
           "id": "lido-validator",
@@ -95,6 +111,14 @@
       "documentation": "https://docs.eigenda.xyz",
       "isActive": true,
       "tags": ["DA", "AVS"],
+      "docsIntegration": [
+        {
+          "text": "EigenDA operator documentation includes setup guides for data availability nodes and restaking requirements"
+        },
+        {
+          "text": "Integration tools include EigenDA SDK for rollup developers and monitoring dashboards for operator performance tracking"
+        }
+      ],
       "opportunities": [
         {
           "id": "eigenda-operator",
@@ -130,6 +154,14 @@
       "documentation": "https://docs.buildernet.org",
       "isActive": true,
       "tags": ["L2", "MEV"],
+      "docsIntegration": [
+        {
+          "text": "Buildernet sequencer documentation covers MEV extraction strategies and optimal transaction ordering"
+        },
+        {
+          "text": "MEV toolkit includes flash loan interfaces, arbitrage detection APIs, and profit optimization algorithms"
+        }
+      ],
       "opportunities": [
         {
           "id": "buildernet-sequencer",
