@@ -102,7 +102,15 @@ export function transformToTableRows(protocols: Protocol[]): TableRow[] {
 
   protocols.forEach(protocol => {
     protocol.opportunities.forEach(opportunity => {
-      opportunity.requirements.forEach(requirement => {
+      // Prefer recommended tier, fallback to minimum if recommended doesn't exist
+      let filteredRequirements = opportunity.requirements.filter(req => req.tier === "minimum");
+      
+      // If no recommended requirements exist, use minimum as fallback
+      if (filteredRequirements.length === 0) {
+        filteredRequirements = opportunity.requirements.filter(req => req.tier === "recommended");
+      }
+      
+      filteredRequirements.forEach(requirement => {
         // Generate entry condition text
         const entryCondition = requirement.entry === "permissionless" 
           ? requirement.hardware.notes?.includes("stake") 

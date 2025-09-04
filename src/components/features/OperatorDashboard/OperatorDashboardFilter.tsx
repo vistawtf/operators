@@ -25,9 +25,33 @@ const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
 
   const filteredItems = useMemo(() => {
     const query = deboucenQuery.toLocaleLowerCase();
-    return items.filter((item) =>
-      item.project.name.toLocaleLowerCase().includes(query)
-    );
+    return items.filter((item) => {
+      // Search in project name and URL
+      const projectNameMatch = item.project.name.toLocaleLowerCase().includes(query);
+      const projectUrlMatch = item.project.url.toLocaleLowerCase().includes(query);
+      
+      // Search in categories (array of strings)
+      const categoryMatch = item.category.some(cat => 
+        cat.toLocaleLowerCase().includes(query)
+      );
+      
+      // Search in status
+      const statusMatch = item.status.toLocaleLowerCase().includes(query);
+      
+      // Search in entry type and condition
+      const entryMatch = 
+        item.entry.type.toLocaleLowerCase().includes(query) ||
+        item.entry.condition.toLocaleLowerCase().includes(query);
+      
+      // Search in hardware specs
+      const hardwareMatch = 
+        item.hardware.cpu.toLocaleLowerCase().includes(query) ||
+        item.hardware.ram.toLocaleLowerCase().includes(query) ||
+        item.hardware.storage.toLocaleLowerCase().includes(query) ||
+        item.hardware.bandwith.toLocaleLowerCase().includes(query);
+      
+      return projectNameMatch || projectUrlMatch || categoryMatch || statusMatch || entryMatch || hardwareMatch;
+    });
   }, [items, deboucenQuery]);
 
   // debounce query
@@ -50,7 +74,7 @@ const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
     <div
       className={
         `${className ?? ""} w-[567px] h-[46px] px-[16px] py-[10px] mx-auto ` +
-        "flex justify-center items-center gap-[8px] rounded-[8px]  border border-[var(--color-light-gray)]"
+        "flex justify-center items-center gap-[8px] rounded-[8px]  border border-[var(--color-light-gray)]/20"
       }
     >
       <SearchIcon />
