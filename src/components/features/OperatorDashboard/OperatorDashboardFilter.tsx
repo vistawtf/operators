@@ -74,10 +74,13 @@ const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
     <div
       className={
         `${className ?? ""} w-[567px] max-w-[calc(100vw-2rem)] h-[48px] md:h-[46px] px-[16px] py-[10px] mx-auto ` +
-        "flex justify-center items-center gap-[8px] rounded-[8px] border border-[var(--color-light-gray)]/20"
+        "group flex justify-center items-center gap-[8px] rounded-[8px] border border-[var(--color-light-gray)]/20 " +
+        "hover:border-[var(--color-light-gray)]/40 transition-colors duration-300"
       }
     >
-      <SearchIcon />
+      <div className="group-hover:[&>svg>path]:stroke-[var(--color-light-orange)] transition-colors duration-300">
+        <SearchIcon />
+      </div>
       <input
         type="text"
         value={query}
