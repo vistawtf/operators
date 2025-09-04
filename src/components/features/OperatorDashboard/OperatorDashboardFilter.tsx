@@ -16,7 +16,7 @@ interface OperatorDashboardFilterProps {
 const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
   items = [],
   className,
-  placeholder = "FIND YOUR PROJECT...",
+  placeholder,
   debounceDelay = 150,
   onFilter,
 }) => {
@@ -73,8 +73,8 @@ const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
   return (
     <div
       className={
-        `${className ?? ""} w-[567px] h-[46px] px-[16px] py-[10px] mx-auto ` +
-        "flex justify-center items-center gap-[8px] rounded-[8px]  border border-[var(--color-light-gray)]/20"
+        `${className ?? ""} w-[567px] max-w-[calc(100vw-2rem)] h-[48px] md:h-[46px] px-[16px] py-[10px] mx-auto ` +
+        "flex justify-center items-center gap-[8px] rounded-[8px] border border-[var(--color-light-gray)]/20"
       }
     >
       <SearchIcon />
@@ -82,9 +82,9 @@ const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder={placeholder}
+        placeholder={placeholder || "FIND YOUR PROJECT..."}
         className={
-          "bg-transparent outline-none font-geist-mono font-medium " +
+          "bg-transparent outline-none font-geist-mono font-medium w-full " +
           "text-[14px] text-[var(--color-light-gray)] placeholder:text-[var(--color-light-gray)]"
         }
       />

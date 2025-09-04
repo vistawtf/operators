@@ -8,7 +8,7 @@ const OperatorDashboardHeader: React.FC = () => {
         <VistaIcon />
       </span>
 
-      <p className="font-semibold font-geist-sans text-[39px]">Operator Opportunities</p>
+      <p className="font-semibold font-geist-sans text-[32px] sm:text-[40px]">Operator Opportunities</p>
     </div>
   );
 };

@@ -6,13 +6,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
-    <header className={`${className} w-full flex items-center justify-between`}>
+    <header className={`${className} w-full md:flex items-center justify-between hidden`}>
       <div>
-        <p className="font-semibold font-geist-sans text-[31.35px]">Operator Opportunities</p>
+        <p className="font-semibold font-geist-sans text-[24px] lg:text-[31.35px] md:block hidden"></p>
       </div>
 
       <div
-        className="flex h-[40px] gap-[18px] 
+        className="flex h-[40px] gap-[12px] md:gap-[18px]
                    font-geist-mono 
                    text-[14px] text-[var(--color-vista-black)]"
       >
@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           href="https://vista.wtf"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-[151px] h-full gap-[13px]
+          className="min-w-[120px] w-[151px] h-full gap-[8px] md:gap-[13px]
                      bg-[var(--color-vista-light)] rounded-[3px]
                      flex justify-center items-center cursor-pointer
                      hover:opacity-90 transition-opacity"
@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           href="https://github.com/vistawtf/operators"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-[210px] h-full gap-[13px]
+          className="min-w-[140px] w-[210px] h-full gap-[8px] md:gap-[13px]
                      bg-[var(--color-medium-orange)] rounded-[3px]
                      flex justify-center items-center cursor-pointer
                      hover:opacity-90 transition-opacity"

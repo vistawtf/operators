@@ -38,7 +38,7 @@ export default function RootLayout({
         <div
           className="
             w-full max-w-[1205px] min-h-screen
-            mx-auto pt-[85px]
+            mx-auto pt-[85px] px-4 md:px-6
             flex flex-col"
         >
           <Header className="mb-[88px]" />
