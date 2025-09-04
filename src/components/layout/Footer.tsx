@@ -16,7 +16,7 @@ export const Footer: FC<FooterProps> = ({ className }) => (
               <span className="text-vista-light">vista</span>
             </p>
             <p className="text-vista-gray-light text-sm font-geist-mono text-shadow-lg text-shadow-black">
-              GET IN TOUCH: <span className="text-vista-light">INFO@VISTA.WTF</span>
+              GET IN TOUCH: <a href="mailto:info@vista.wtf" className="text-[var(--color-vista-light)] hover:text-[var(--color-light-orange)] transition-colors duration-300 cursor-pointer">INFO@VISTA.WTF</a>
             </p>
           </div>
           <div className="flex justify-center md:justify-end w-full">
@@ -27,7 +27,7 @@ export const Footer: FC<FooterProps> = ({ className }) => (
                   href="https://x.com/vistawtf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-vista-orange-light duration-300"
+                  className="hover:text-[var(--color-light-orange)] transition-colors duration-300"
                 >
                   X (TWITTER)
                 </a>
@@ -35,7 +35,7 @@ export const Footer: FC<FooterProps> = ({ className }) => (
                   href="https://github.com/vistawtf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-vista-orange-light duration-300"
+                  className="hover:text-[var(--color-light-orange)] transition-colors duration-300"
                 >
                   GITHUB
                 </a>
@@ -43,7 +43,7 @@ export const Footer: FC<FooterProps> = ({ className }) => (
                   href="https://paragraph.com/@vista/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-vista-orange-light duration-300"
+                  className="hover:text-[var(--color-light-orange)] transition-colors duration-300"
                 >
                   PARAGRAPH.XYZ
                 </a>

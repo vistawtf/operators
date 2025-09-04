@@ -66,17 +66,23 @@ const OperatorViewHeader: React.FC<OperatorViewHeaderProps> = ({
 
         <div className="flex items-center gap-[12px]">
           {Object.entries(links).map(([name, { icon, url }]) => (
-            <div
+            <a 
               key={name}
-              className="flex items-center px-[10px] py-[7px] md:px-[14px] md:gap-[7px]
+              href={url.startsWith('http') ? url : `https://${url}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center px-[10px] py-[7px] md:px-[14px] md:gap-[7px]
                          border border-[var(--color-light-gray)] rounded-[3px] 
-                         font-medium text-[16px] font-geist-mono text-[var(--color-light-gray)]"
+                         font-medium text-[16px] font-geist-mono text-[var(--color-light-gray)]
+                         hover:bg-[var(--color-vista-light)] hover:text-[var(--color-vista-black)]
+                         hover:border-[var(--color-vista-light)] transition-all duration-300
+                         cursor-pointer"
             >
-              {icon}
-              <a href={url.startsWith('http') ? url : `https://${url}`} target="_blank" rel="noopener noreferrer">
-                <span className="hidden md:inline">{name.toUpperCase()}</span>
-              </a>
-            </div>
+              <div className="group-hover:[&>svg>path]:stroke-[var(--color-vista-black)] transition-colors duration-300">
+                {icon}
+              </div>
+              <span className="hidden md:inline">{name.toUpperCase()}</span>
+            </a>
           ))}
         </div>
       </div>
