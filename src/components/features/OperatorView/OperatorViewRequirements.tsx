@@ -64,14 +64,15 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
                          bg-[var(--color-ultra-gray)] rounded-[4px]"
             >
               {specs.map(({ Icon, value, label }) => (
-                <div key={label} className="flex items-center gap-[8px] xl:gap-[10px] h-full justify-center xl:justify-start">
-                  <Icon stroke="var(--color-light-blue)" />
-
-                  <div className="leading-none">
-                    <p className="font-semibold font-geist-sans">{value}</p>
-                    <p className="font-geist-mono font-semibold text-[var(--color-light-gray)]">
-                      {label}
-                    </p>
+                <div key={label} className="w-28 inline-flex flex-col justify-start items-start gap-2.5">
+                  <div className="self-stretch inline-flex justify-start items-center gap-2.5">
+                    <Icon stroke="var(--color-light-blue)" />
+                    <div className="justify-start leading-none">
+                      <p className="font-semibold font-geist-sans text-white">{value}</p>
+                      <p className="font-geist-mono font-semibold text-[var(--color-light-gray)]">
+                        {label}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
