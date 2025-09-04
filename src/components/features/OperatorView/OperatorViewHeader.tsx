@@ -68,13 +68,13 @@ const OperatorViewHeader: React.FC<OperatorViewHeaderProps> = ({
           {Object.entries(links).map(([name, { icon, url }]) => (
             <div
               key={name}
-              className="flex items-center px-[14px] py-[7px] gap-[7px] 
+              className="flex items-center px-[10px] py-[7px] md:px-[14px] md:gap-[7px]
                          border border-[var(--color-light-gray)] rounded-[3px] 
                          font-medium text-[16px] font-geist-mono text-[var(--color-light-gray)]"
             >
               {icon}
               <a href={url.startsWith('http') ? url : `https://${url}`} target="_blank" rel="noopener noreferrer">
-                {name.toUpperCase()}
+                <span className="hidden md:inline">{name.toUpperCase()}</span>
               </a>
             </div>
           ))}

@@ -37,7 +37,7 @@ const OperatorView: React.FC<OperatorViewProps> = ({ protocolId }) => {
 
   if (loading) {
     return (
-      <div className="flex flex-col px-[176px] py-[80px] border border-[var(--color-medium-gray)] rounded-[8px]">
+      <div className="flex flex-col px-16 py-12 md:px-32 md:py-16 lg:px-[176px] lg:py-[80px] border border-[var(--color-medium-gray)] rounded-[8px]">
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
@@ -50,7 +50,7 @@ const OperatorView: React.FC<OperatorViewProps> = ({ protocolId }) => {
 
   if (error || !protocol) {
     return (
-      <div className="flex flex-col px-[176px] py-[80px] border border-[var(--color-medium-gray)] rounded-[8px]">
+      <div className="flex flex-col px-16 py-12 md:px-32 md:py-16 lg:px-[176px] lg:py-[80px] border border-[var(--color-medium-gray)] rounded-[8px]">
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
             <p className="text-red-400 mb-2">Protocol not found</p>
@@ -63,7 +63,7 @@ const OperatorView: React.FC<OperatorViewProps> = ({ protocolId }) => {
 
   return (
     <div
-      className="flex flex-col px-[176px] py-[80px]
+      className="flex flex-col px-16 py-12 md:px-32 md:py-16 lg:px-[176px] lg:py-[80px]
                  border border-[var(--color-medium-gray)] rounded-[8px]"
     >
       <OperatorViewHeader className="mb-[18px]" protocol={protocol} />
