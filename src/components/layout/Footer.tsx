@@ -1,88 +1,71 @@
-import Link from "next/link";
-import Image from "next/image";
+import type { FC } from 'react';
+import { Plasma } from './noise';
 
 interface FooterProps {
   className?: string;
 }
 
-const Footer: React.FC<FooterProps> = ({ className }) => {
-  return (
-    <footer
-      className={`${className} relative left-1/2 right-1/2 -translate-x-1/2 w-screen h-[400px]`}
-    >
-      <Image
-        src="/footer-background.svg"
-        alt="Footer Background"
-        fill
-        priority
-        style={{ objectFit: "cover", objectPosition: "center" }}
-        quality={100}
-      />
-
-      <div
-        className="relative z-10 h-full max-w-[1205px] 
-                      mx-auto pb-[51px] pt-[180px] 
-                      flex justify-between font-geist-mono"
-      >
-        <div className="flex flex-col gap-[104px]">
-          <p>
-            <span className="text-[var(--color-light-gray)]">Made with</span>{" "}
-            <span className="text-[var(--color-ultra-orange)]">&lt;3</span> by
-            vista
-          </p>
-          <div className="relative z-10 flex flex-col items-center justify-center h-full">
-            <p className="text-[12px]">
-              <span className="text-[var(--color-light-gray)]">
-                GET IN TOUCH:
-              </span>{" "}
-              <a href="mailto:INFO@VISTA.WTF" className="hover:text-white">
-                INFO@VISTA.WTF
-              </a>
+export const Footer: FC<FooterProps> = ({ className }) => (
+  <footer className={className}>
+    <Plasma>
+      <div className="z-[100] relative max-w-screen-xl mx-auto px-4 pt-[400px] h-full pb-16">
+        <div className="flex w-full h-full md:flex-row flex-col-reverse gap-12 md:gap-0">
+          <div className="flex flex-col items-center md:items-start md:justify-between h-full w-full">
+            <p className="text-vista-gray-light text-[25px] text-shadow-lg text-shadow-black">
+              made with <span className="text-vista-orange">{'<3'}</span> by{' '}
+              <span className="text-vista-light">vista</span>
+            </p>
+            <p className="text-vista-gray-light text-sm font-mono text-shadow-lg text-shadow-black">
+              GET IN TOUCH: <span className="text-vista-light">INFO@VISTA.WTF</span>
             </p>
           </div>
-        </div>
-
-        <div className="flex gap-[129px]">
-          <div>
-            <p className="text-[18px] mb-[8px]">ABOUT</p>
-            <div className="font-medium text-[var(--color-light-gray)] text-[16px] space-y-[8px]">
-              <Link href="/solutions" className="block hover:text-white">
-                Solutions
-              </Link>
-              <Link href="/work" className="block hover:text-white">
-                Work
-              </Link>
-              <Link href="/team" className="block hover:text-white">
-                Team
-              </Link>
+          <div className="flex justify-center md:justify-end w-full gap-24">
+            <div>
+              <h4 className="text-[21px] text-vista-light mb-4">Navigation</h4>
+              <div className="flex flex-col gap-4 font-mono text-vista-gray-light text-sm">
+                <a href="https://vista.wtf" className="hover:text-vista-orange-light duration-300">
+                  HOME
+                </a>
+                <a href="https://vista.wtf" className="hover:text-vista-orange-light duration-300">
+                  ABOUT
+                </a>
+                <a href="https://vista.wtf" className="hover:text-vista-orange-light duration-300">
+                  SOLUTIONS
+                </a>
+                <a href="https://vista.wtf" className="hover:text-vista-orange-light duration-300">
+                  WORK
+                </a>
+                <a href="https://vista.wtf" className="hover:text-vista-orange-light duration-300">
+                  TEAM
+                </a>
+              </div>
             </div>
-          </div>
-
-          <div>
-            <p className="text-[18px] mb-[8px]">SOCIALS</p>
-            <div className="font-medium text-[var(--color-light-gray)] text-[16px] space-y-[8px]">
-              <a
-                href="https://twitter.com/vista"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:text-white"
-              >
-                X (Twitter)
-              </a>
-              <a
-                href="https://github.com/vista"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:text-white"
-              >
-                Github
-              </a>
+            <div>
+              <h4 className="text-[21px] text-vista-light mb-4">Socials</h4>
+              <div className="flex flex-col gap-4 font-mono text-vista-gray-light text-sm">
+                <a
+                  href="https://x.com/vistawtf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-vista-orange-light duration-300"
+                >
+                  X (TWITTER)
+                </a>
+                <a
+                  href="https://github.com/vistawtf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-vista-orange-light duration-300"
+                >
+                  GITHUB
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </footer>
-  );
-};
+    </Plasma>
+  </footer>
+);
 
 export default Footer;
