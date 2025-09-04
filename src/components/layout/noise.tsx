@@ -49,7 +49,7 @@ export function Plasma({ children }: { children?: React.ReactNode }) {
     >
       <div className="absolute bg-gradient-to-b from-black/50 via-black/85 to-black w-full h-full" />
       <pre
-        className="z-[-1] absolute top-0 left-0 font-mono w-full"
+        className="z-[-1] absolute top-0 left-0 font-geist-mono w-full"
         style={{
           whiteSpace: 'pre',
           fontSize: '14px',
