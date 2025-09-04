@@ -10,4 +10,5 @@ export { default as WebIcon } from "./WebIcon";
 export { default as WifiIcon } from "./WifiIcon";
 export { default as StorageIcon } from "./StorageIcon";
 export { default as UnlockIcon } from "./UnlockIcon";
+export { default as LockIcon } from "./LockIcon";
 export { default as CodeIcon } from "./CodeIcon";

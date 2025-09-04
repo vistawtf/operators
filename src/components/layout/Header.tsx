@@ -8,30 +8,38 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
     <header className={`${className} w-full flex items-center justify-between`}>
       <div>
-        <p className="font-semibold text-[31.35px]">Operator Opportunities</p>
+        <p className="font-semibold font-geist-sans text-[31.35px]">Operator Opportunities</p>
       </div>
 
       <div
         className="flex h-[40px] gap-[18px] 
-                   font-geist-mono font-bold 
+                   font-geist-mono 
                    text-[14px] text-[var(--color-vista-black)]"
       >
-        <button
+        <a
+          href="https://vista.wtf"
+          target="_blank"
+          rel="noopener noreferrer"
           className="w-[151px] h-full gap-[13px]
                      bg-[var(--color-vista-light)] rounded-[3px]
-                     flex justify-center items-center cursor-pointer"
+                     flex justify-center items-center cursor-pointer
+                     hover:opacity-90 transition-opacity"
         >
           <p>ABOUT VISTA</p>
           <CrossIcon />
-        </button>
-        <button
+        </a>
+        <a
+          href="https://github.com/vistawtf/operators"
+          target="_blank"
+          rel="noopener noreferrer"
           className="w-[210px] h-full gap-[13px]
                      bg-[var(--color-medium-orange)] rounded-[3px]
-                     flex justify-center items-center cursor-pointer"
+                     flex justify-center items-center cursor-pointer
+                     hover:opacity-90 transition-opacity"
         >
-          FILL YOUR PROJECT
+          ADD YOUR PROJECT
           <CrossIcon />
-        </button>
+        </a>
       </div>
     </header>
   );

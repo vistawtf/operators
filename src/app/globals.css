@@ -9,8 +9,8 @@
   --color-vista-light: #e4e2d8;
   --color-vista-black: #111111;
 
-  --color-light-lime: #b2ff59;
-  --color-medium-lime: #c5e1a5;
+  --color-medium-lime: #b2ff59;
+  --color-light-lime: #c5e1a5;
 
   --color-light-orange: #ff8a65;
   --color-medium-orange: #ff7043;
@@ -37,4 +37,29 @@ body {
   background: var(--color-vista-black);
   color: var(--color-vista-light);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Vista custom classes for footer */
+.text-vista-gray-light {
+  color: var(--color-light-gray);
+}
+
+.text-vista-orange {
+  color: var(--color-ultra-orange);
+}
+
+.text-vista-light {
+  color: var(--color-vista-light);
+}
+
+.text-vista-orange-light {
+  color: var(--color-light-orange);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.text-shadow-black {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }

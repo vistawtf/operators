@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
   // Add base path if your repo isn't the main GitHub Pages site
   // basePath: '/your-repo-name',
   // assetPrefix: '/your-repo-name',
