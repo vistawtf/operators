@@ -55,56 +55,100 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
   return (
     <div className={`${className} flex flex-col xl:flex-row gap-[32px]`}>
       <div className="w-full xl:w-[50%] flex flex-col gap-[32px]">
-        {hardwareRequirements.map(({ title, specs }) => (
+        {hardwareRequirements.map(({ title, specs }) => {
+          const [CpuSpec, RamSpec, StorageSpec, BandwidthSpec] = specs;
+          return (
           <div key={title} className="flex flex-col gap-[32px]">
             <p className="font-medium text-[32px] font-geist-sans text-white">{title}</p>
             
             <div
-              className="h-[158px] grid grid-cols-2 grid-rows-2 gap-x-[16px] xl:gap-x-[32px] gap-y-[29px] px-4 xl:px-[52px] py-[30px]
-                         bg-[var(--color-ultra-gray)] rounded-[4px]"
+              className="h-[158px] px-4 xl:px-[52px] py-[30px] bg-[var(--color-ultra-gray)] rounded-[4px] flex items-center justify-center"
             >
-              {specs.map(({ Icon, value, label }) => (
-                <div key={label} className="w-28 inline-flex flex-col justify-start items-start gap-2.5">
+              <div className="inline-flex justify-start items-center gap-8 flex-wrap content-center">
+                <div className="w-28 inline-flex flex-col justify-start items-start gap-7">
                   <div className="self-stretch inline-flex justify-start items-center gap-2.5">
-                    <Icon stroke="var(--color-light-blue)" />
+                    <div className="w-[25px] h-[25px] flex-shrink-0">
+                      <CpuSpec.Icon stroke="var(--color-light-blue)" />
+                    </div>
                     <div className="justify-start leading-none">
-                      <p className="font-semibold font-geist-sans text-white">{value}</p>
+                      <p className="font-semibold font-geist-sans text-white">{CpuSpec.value}</p>
                       <p className="font-geist-mono font-semibold text-[var(--color-light-gray)]">
-                        {label}
+                        {CpuSpec.label}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="self-stretch inline-flex justify-start items-center gap-2.5">
+                    <div className="w-[25px] h-[25px] flex-shrink-0">
+                      <StorageSpec.Icon stroke="var(--color-light-blue)" />
+                    </div>
+                    <div className="justify-start leading-none">
+                      <p className="font-semibold font-geist-sans text-white">{StorageSpec.value}</p>
+                      <p className="font-geist-mono font-semibold text-[var(--color-light-gray)]">
+                        {StorageSpec.label}
                       </p>
                     </div>
                   </div>
                 </div>
-              ))}
+                <div className="flex-1 inline-flex flex-col justify-start items-start gap-7">
+                  <div className="inline-flex justify-start items-center gap-2.5">
+                    <div className="w-[25px] h-[25px] flex-shrink-0">
+                      <RamSpec.Icon stroke="var(--color-light-blue)" />
+                    </div>
+                    <div className="justify-start leading-none">
+                      <p className="font-semibold font-geist-sans text-white">{RamSpec.value}</p>
+                      <p className="font-geist-mono font-semibold text-[var(--color-light-gray)]">
+                        {RamSpec.label}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="self-stretch inline-flex justify-start items-center gap-2.5">
+                    <div className="w-[25px] h-[25px] flex-shrink-0">
+                      <BandwidthSpec.Icon stroke="var(--color-light-blue)" />
+                    </div>
+                    <div className="justify-start leading-none">
+                      <p className="font-semibold font-geist-sans text-white">{BandwidthSpec.value}</p>
+                      <p className="font-geist-mono font-semibold text-[var(--color-light-gray)]">
+                        {BandwidthSpec.label}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="w-full xl:w-[50%] flex flex-col gap-[32px]">
         <p className="font-medium font-geist-sans text-[32px] text-white">Entry Requirements</p>
 
         <div
-          className="h-[158px] flex flex-col gap-[16px] px-6 xl:px-[75px] py-[30px]
-                       bg-[var(--color-ultra-gray)] rounded-[4px]"
+          className="h-[158px] px-6 xl:px-[75px] py-[30px]
+                       bg-[var(--color-ultra-gray)] rounded-[4px] flex items-center justify-center"
         >
-          <div className="flex items-center gap-[16px]">
-            {isPermissionless ? (
-              <UnlockIcon stroke="var(--color-medium-lime)" />
-            ) : (
-              <LockIcon />
-            )}
-            <p className="font-geist-mono font-medium text-[20px] text-white">
-              {entryType.toUpperCase()}
-            </p>
+          <div className="w-60 inline-flex flex-col justify-start items-start gap-4">
+            <div className="inline-flex justify-start items-center gap-4">
+              <div className="w-6 h-6 flex-shrink-0">
+                {isPermissionless ? (
+                  <UnlockIcon stroke="var(--color-medium-lime)" />
+                ) : (
+                  <LockIcon />
+                )}
+              </div>
+              <div className="justify-start text-white text-xl font-medium font-geist-mono uppercase leading-snug tracking-tight">
+                {entryType.toUpperCase()}
+              </div>
+            </div>
+            <div className="self-stretch inline-flex justify-start items-center gap-4">
+              <div className="w-60 justify-start text-[var(--color-light-gray)] text-base font-normal font-geist-sans leading-tight tracking-tight">
+                {isPermissionless 
+                  ? "No specific approval or stake needed to participate"
+                  : "Active Operator Set is gated for the top 200 stakeholders"
+                }
+              </div>
+            </div>
           </div>
-
-          <p className="font-geist-sans text-[var(--color-light-gray)] text-justify">
-            {isPermissionless 
-              ? "No specific approval or stake needed to participate"
-              : "Requires permission or specific criteria to participate"
-            }
-          </p>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ const OperatorViewContent: React.FC<OperatorViewContentProps> = ({
     <div className={`${className} flex flex-col`}>
       <p className="font-medium font-geist-sans text-[61px]">{protocol.name}</p>
 
-      <p className="text-[20px] font-geist-sans text-[var(--color-light-gray)] text-justify">
+      <p className="text-[20px] font-geist-sans text-[var(--color-light-gray)]">
         {protocol.description}
       </p>
 
@@ -31,7 +31,7 @@ const OperatorViewContent: React.FC<OperatorViewContentProps> = ({
                 stroke="var(--color-light-purple)"
                 className="flex-shrink-0 mt-1"
               />
-              <p className="text-justify text-[20px] font-geist-sans text-[var(--color-light-gray)]">
+              <p className="text-[20px] font-geist-sans text-[var(--color-light-gray)]">
                 {item.text}
               </p>
             </div>
