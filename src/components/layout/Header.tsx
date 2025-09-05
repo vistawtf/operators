@@ -23,13 +23,17 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           href="https://github.com/vistawtf/operators"
           target="_blank"
           rel="noopener noreferrer"
-          className="min-w-[140px] w-[210px] h-full gap-[8px] md:gap-[13px]
+          className="group min-w-[140px] w-[210px] h-full gap-[8px] md:gap-[13px]
                      bg-[var(--color-medium-orange)] rounded-[3px]
                      flex justify-center items-center cursor-pointer
-                     hover:opacity-90 transition-opacity"
+                     hover:bg-[var(--color-vista-light)] 
+                     hover:text-[var(--color-vista-black)] hover:font-medium
+                     transition-all duration-200 ease-in-out"
         >
           ADD YOUR PROJECT
-          <CrossIcon />
+          <div className="transition-transform duration-500 ease-in-out group-hover:rotate-360">
+            <CrossIcon />
+          </div>
         </a>
       </div>
     </header>

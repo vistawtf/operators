@@ -63,3 +63,8 @@ body {
 .text-shadow-black {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
+
+/* Custom rotation for smooth icon spin */
+.rotate-360 {
+  transform: rotate(360deg);
+}

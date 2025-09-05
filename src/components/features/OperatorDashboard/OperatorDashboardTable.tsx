@@ -129,8 +129,10 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
     return (
       <div className="flex gap-[24px] leading-[110%] tracking-[1%]">
         {specs.map((spec, idx) => (
-          <div key={idx} className="flex items-center gap-[10px]">
-            {spec.icon}
+          <div key={idx} className="flex items-center gap-[10px] w-24">
+            <div className="w-[25px] h-[25px] flex-shrink-0">
+              {spec.icon}
+            </div>
             <div>
               <p className="font-geist-sans font-medium text-sm">
                 {spec.value}
