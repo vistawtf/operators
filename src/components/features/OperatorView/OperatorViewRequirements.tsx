@@ -23,7 +23,12 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
   const recRequirement = requirements.find(req => req.tier === "recommended");
   
   // Helper function to generate specs for any hardware
-  const generateSpecs = (hardware: any) => [
+  const generateSpecs = (hardware: {
+    cpuCores?: number;
+    ramGb?: number;
+    storageGb?: number;
+    upMbps?: number;
+  } | undefined) => [
     { Icon: CpuIcon, value: `${hardware?.cpuCores || 4} cores`, label: "CPU" },
     { Icon: RamIcon, value: `${hardware?.ramGb || 8}GB`, label: "RAM" },
     { Icon: StorageIcon, value: `${Math.round((hardware?.storageGb || 1000) / 1000)}TB`, label: "STORAGE" },

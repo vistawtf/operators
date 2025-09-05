@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
       <div
         className="flex h-[40px] gap-[12px] md:gap-[18px]
-                   font-geist-mono 
+                   font-geist-mono font-semibold
                    text-[14px] text-[var(--color-vista-black)]"
       >
         <a
@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                      bg-[var(--color-medium-orange)] rounded-[3px]
                      flex justify-center items-center cursor-pointer
                      hover:bg-[var(--color-vista-light)] 
-                     hover:text-[var(--color-vista-black)] hover:font-medium
+                     hover:text-[var(--color-vista-black)] hover:font-bold
                      transition-all duration-200 ease-in-out"
         >
           ADD YOUR PROJECT

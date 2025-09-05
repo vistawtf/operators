@@ -5,10 +5,50 @@ import { useEffect, useMemo, useState } from "react";
 import { Row } from ".";
 import { SearchIcon } from "@/components/ui/svg";
 
+const TypewriterPlaceholder = ({ show }: { show: boolean }) => {
+  if (!show) return null;
+  
+  return (
+    <>
+      <style>{`
+        @keyframes retroLoadingDot1 {
+          0%, 100% { opacity: 1; }
+        }
+        @keyframes retroLoadingDot2 {
+          0%, 33% { opacity: 0; }
+          34%, 83% { opacity: 1; }
+          84%, 100% { opacity: 0; }
+        }
+        @keyframes retroLoadingDot3 {
+          0%, 66% { opacity: 0; }
+          67%, 83% { opacity: 1; }
+          84%, 100% { opacity: 0; }
+        }
+        .retro-dot-1 {
+          animation: retroLoadingDot1 2s infinite;
+        }
+        .retro-dot-2 {
+          animation: retroLoadingDot2 2s infinite;
+        }
+        .retro-dot-3 {
+          animation: retroLoadingDot3 2s infinite;
+        }
+      `}</style>
+      <div className="absolute inset-0 flex items-center pointer-events-none font-geist-mono font-medium text-[14px] text-[var(--color-light-gray)]">
+        SEARCH BY PROJECT, CATEGORY, HARDWARE, ETC
+        <span className="inline-flex ml-0.5">
+          <span className="retro-dot-1">.</span>
+          <span className="retro-dot-2">.</span>
+          <span className="retro-dot-3">.</span>
+        </span>
+      </div>
+    </>
+  );
+};
+
 interface OperatorDashboardFilterProps {
   items?: Row[];
   className?: string;
-  placeholder?: string;
   debounceDelay?: number;
   onFilter?: (filteredItems: Row[]) => void;
 }
@@ -16,7 +56,6 @@ interface OperatorDashboardFilterProps {
 const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
   items = [],
   className,
-  placeholder,
   debounceDelay = 150,
   onFilter,
 }) => {
@@ -75,22 +114,26 @@ const OperatorDashboardFilter: React.FC<OperatorDashboardFilterProps> = ({
       className={
         `${className ?? ""} w-[567px] max-w-[calc(100vw-2rem)] h-[48px] md:h-[46px] px-[16px] py-[10px] mx-auto ` +
         "group flex justify-center items-center gap-[8px] rounded-[8px] border border-[var(--color-light-gray)]/20 " +
-        "hover:border-[var(--color-light-gray)]/40 transition-colors duration-300"
+        "hover:border-[var(--color-light-gray)]/40 focus-within:border-[var(--color-light-orange)]/60 " +
+        "focus-within:bg-[var(--color-light-gray)]/5 transition-all duration-300"
       }
     >
-      <div className="group-hover:[&>svg>path]:stroke-[var(--color-light-orange)] transition-colors duration-300">
+      <div className="group-hover:[&>svg>path]:stroke-[var(--color-light-orange)] group-focus-within:[&>svg>path]:stroke-[var(--color-light-orange)] transition-colors duration-300">
         <SearchIcon />
       </div>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder={placeholder || "FIND YOUR PROJECT..."}
-        className={
-          "bg-transparent outline-none font-geist-mono font-medium w-full " +
-          "text-[14px] text-[var(--color-light-gray)] placeholder:text-[var(--color-light-gray)]"
-        }
-      />
+      <div className="relative w-full">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value.toUpperCase())}
+          placeholder=""
+          className={
+            "bg-transparent outline-none font-geist-mono font-medium w-full relative z-10 " +
+            "text-[14px] text-[var(--color-light-gray)] uppercase"
+          }
+        />
+        <TypewriterPlaceholder show={query === ""} />
+      </div>
     </div>
   );
 };

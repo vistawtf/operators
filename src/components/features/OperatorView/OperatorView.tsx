@@ -40,8 +40,8 @@ const OperatorView: React.FC<OperatorViewProps> = ({ protocolId }) => {
       <div className="flex flex-col px-16 py-12 md:px-32 md:py-16 lg:px-[176px] lg:py-[80px] border border-[var(--color-medium-gray)] rounded-[8px]">
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-white/60">Loading protocol...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-light-orange)] mx-auto mb-4"></div>
+            <p className="text-white/60 animate-pulse">Loading protocol...</p>
           </div>
         </div>
       </div>

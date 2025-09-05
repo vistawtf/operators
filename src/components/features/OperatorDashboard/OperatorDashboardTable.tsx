@@ -194,7 +194,7 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
 
   return (
     <div
-      className={`${className} min-h-[422px] w-full overflow-auto rounded-[8px] border border-[var(--color-idle-gray)]`}
+      className={`${className || ""} min-h-[422px] w-full overflow-auto rounded-[8px] border border-[var(--color-idle-gray)]`}
     >
       <table className="min-w-full">
         <thead className="bg-[var(--color-idle-gray)]">
@@ -220,7 +220,7 @@ const OperatorDashboardTable: React.FC<OperatorDashboardTableProps> = ({
           {table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              className="cursor-pointer"
+              className="cursor-pointer hover:bg-[var(--color-idle-gray)]/30 transition-colors duration-200"
               onClick={() => router.push(`/${row.original.project.protocolId || row.original.project.name.toLowerCase()}`)}
             >
               {row.getVisibleCells().map((cell) => (

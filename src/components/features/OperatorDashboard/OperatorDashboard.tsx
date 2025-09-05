@@ -64,8 +64,8 @@ const OperatorDashboard: React.FC = () => {
         <OperatorDashboardHeader />
         <div className="mt-[40px] flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-white/60">Loading protocols...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-light-orange)] mx-auto mb-4"></div>
+            <p className="text-white/60 animate-pulse">Loading protocols...</p>
           </div>
         </div>
       </div>
