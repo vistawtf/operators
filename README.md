@@ -1,6 +1,7 @@
 # Operators Protocol Database
+### Crowdsourced operator information for blockchain protocols.
 
-Crowdsourced operator information for blockchain protocols.
+**Facilitate flow, enable discovery.** We manually review submissions and want contributors to surprise us with projects & new operator angles we hadn't considered.
 
 ## 🎯 For Contributors
 
@@ -13,6 +14,8 @@ Crowdsourced operator information for blockchain protocols.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
+---
+
 ## 🔧 For Maintainers
 
 ```bash
@@ -23,8 +26,3 @@ node scripts/validate.js
 node scripts/compile.js
 ```
 
-**Facilitate flow, enable discovery.** We manually review submissions and want contributors to surprise us with insights we hadn't considered.
-
----
-
-*Add your protocol. Help operators discover opportunities.*
