@@ -1,0 +1,164 @@
+name: Validate Operators Data
+
+on:
+  pull_request:
+    paths:
+      - 'protocols/**'
+      - 'logos/**'
+      - 'scripts/**'
+  push:
+    branches: [main]
+    paths:
+      - 'protocols/**'
+      - 'logos/**'
+      - 'scripts/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate Protocol Data & Logos
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Validate Protocol Files
+        run: |
+          echo "🔍 Running comprehensive validation..."
+          node scripts/validate.js
+        
+      - name: List Changed Files in PR
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "📝 Files modified in this PR:"
+          git diff --name-only origin/${{ github.base_ref }}...HEAD || echo "Unable to determine changed files"
+      
+      - name: Validate Compilation
+        run: |
+          echo "🔄 Testing compilation..."
+          node scripts/compile.js
+          echo "✅ Compilation successful!"
+      
+      - name: Show Protocol Stats
+        run: |
+          echo "📊 Current protocol count: $(ls protocols/*.json 2>/dev/null | wc -l)"
+          echo "📊 Protocols with logos: $(ls logos/*.svg 2>/dev/null | wc -l)"
+
+  security-check:
+    runs-on: ubuntu-latest
+    name: Security & Quality Check
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Check File Sizes
+        run: |
+          echo "📏 Checking file sizes..."
+          find logos -name "*.svg" -size +100k -exec echo "⚠️  Large logo file: {} ($(du -h {} | cut -f1))" \; 2>/dev/null || echo "No large logo files found"
+          find protocols -name "*.json" -size +50k -exec echo "⚠️  Large protocol file: {} ($(du -h {} | cut -f1))" \; 2>/dev/null || echo "No large protocol files found"
+      
+      - name: Check for Suspicious Content
+        run: |
+          echo "🔍 Checking for suspicious content..."
+          
+          # Check for potential XSS in JSON
+          if find protocols -name "*.json" -exec grep -l "javascript:" {} \; 2>/dev/null | grep -q .; then
+            echo "❌ Found potential XSS content in JSON files"
+            exit 1
+          fi
+          
+          # Check for external script references in SVGs
+          if find logos -name "*.svg" -exec grep -l "<script" {} \; 2>/dev/null | grep -q .; then
+            echo "❌ Found script tags in SVG files"
+            exit 1
+          fi
+          
+          # Check for external references in SVGs
+          if find logos -name "*.svg" -exec grep -l "http://" {} \; 2>/dev/null | grep -q .; then
+            echo "⚠️  Found external HTTP references in SVGs"
+          fi
+          
+          echo "✅ Security check passed"
+      
+      - name: Validate SVG Structure
+        run: |
+          echo "🎨 Validating SVG files..."
+          for svg in logos/*.svg 2>/dev/null; do
+            if [ -f "$svg" ]; then
+              if ! xmllint --noout "$svg" 2>/dev/null; then
+                echo "❌ Invalid XML/SVG structure in $svg"
+                exit 1
+              fi
+            fi
+          done
+          echo "✅ All SVG files are valid"
+
+  pr-feedback:
+    runs-on: ubuntu-latest
+    name: PR Feedback
+    needs: [validate, security-check]
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Success Comment
+        if: needs.validate.result == 'success' && needs.security-check.result == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('✅ Validation successful!')
+            );
+            
+            if (!botComment) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `## ✅ Validation successful!
+                
+All protocol data and logos have passed validation:
+- ✅ JSON structure and required fields
+- ✅ Logo files present and valid SVG format  
+- ✅ Security checks passed
+- ✅ File compilation successful
+
+Thank you for your contribution! 🎉`
+              });
+            }
+      
+      - name: Failure Comment
+        if: needs.validate.result == 'failure' || needs.security-check.result == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ❌ Validation failed
+              
+Please check the workflow logs for detailed error messages and fix the issues:
+- Check protocol JSON format and required fields
+- Ensure logos are present and valid SVG files  
+- Review security check failures
+
+Run the validation locally:
+\`\`\`bash
+node scripts/validate.js
+\`\`\`
+
+Feel free to ask for help if you need assistance! 🤝`
+            });
