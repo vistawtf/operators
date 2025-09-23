@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Protocol",
+  "description": "Flexible schema for protocol operator information",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (lowercase, no spaces recommended)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Protocol name"
+    },
+    "description": {
+      "type": "string",
+      "description": "What the protocol does and operator opportunities"
+    }
+  },
+  "additionalProperties": true
+}

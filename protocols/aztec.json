@@ -1,0 +1,60 @@
+{
+  "id": "aztec",
+  "name": "Aztec",
+  "website": "https://aztec.network",
+  "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs.",
+  "documentation": "https://docs.aztec.network",
+  "isActive": true,
+  "tags": ["L2", "Privacy", "ZK"],
+  "docsIntegration": [
+    {
+      "text": "Official documentation for operators (running sequencers, full nodes, provers) is available"
+    },
+    {
+      "text": "Integrations/tools include Aztec.js (library to interact with contracts) and Aztec.nr (Noir framework for private smart contracts). The network uses Noir for zk circuits."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "aztec-prover",
+      "type": "prover",
+      "status": "testnet",
+      "requirements": [
+        {
+          "tier": "recommended",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 8,
+            "ramGb": 32,
+            "storageGb": 1000,
+            "storageMedia": "NVME",
+            "iopsRead": 50000,
+            "iopsWrite": 30000,
+            "upMbps": 100,
+            "downMbps": 100,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": "GPU acceleration recommended for proving"
+          }
+        },
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 4,
+            "ramGb": 16,
+            "storageGb": 500,
+            "storageMedia": "SSD",
+            "iopsRead": 20000,
+            "iopsWrite": 15000,
+            "upMbps": 50,
+            "downMbps": 50,
+            "staticIpPreferred": false,
+            "upsRequired": false,
+            "notes": "Basic setup for testing"
+          }
+        }
+      ]
+    }
+  ]
+}
