@@ -22,6 +22,9 @@ npm run dev
 
 # Build for production
 npm run build
+
+# Start production server
+npm run start
 ```
 
 ## 📊 Data Management with Git Submodule
@@ -142,9 +145,29 @@ The operators repo has minimal validation (JSON + basic fields) to encourage cre
 - The development server supports both submodule and fallback data sources
 
 ### Production Deployment
-- Ensure submodules are initialized in build process
-- The `prebuild` script automatically updates data
-- API routes serve data for client-side components
+
+#### Railway Deployment (Primary Platform)
+
+This application is optimized for Railway deployment:
+
+1. **Connect your repository** to Railway
+2. **Configure build settings** in Railway dashboard:
+   - Build Command: `npm run build`
+   - Start Command: `npm run start`
+3. **Set up git submodules** in Railway:
+   - Add this environment variable: `RAILWAY_GIT_COMMIT_SHA=true`
+   - Railway will automatically initialize submodules during build
+
+#### Alternative Platforms
+
+For other platforms, ensure submodules are initialized in your build process:
+```bash
+git submodule update --init --recursive
+npm run build
+npm run start
+```
+
+**Note:** The `prebuild` script automatically updates submodule data before each build.
 
 ### Environment Variables
 No environment variables required - all data comes from the git submodule.
