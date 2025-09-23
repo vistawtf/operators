@@ -7,7 +7,11 @@
     "build": "next build",
     "export": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "data:init": "git submodule update --init --recursive",
+    "data:update": "git submodule update --remote",
+    "data:sync": "git submodule sync && git submodule update --remote",
+    "prebuild": "npm run data:update"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",

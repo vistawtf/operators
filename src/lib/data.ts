@@ -1,18 +1,15 @@
-// Replace this with your GitHub raw URL when ready
-const DATA_URL = "/protocols.json"; // For now, serve from public folder
-// const DATA_URL = "https://raw.githubusercontent.com/your-username/your-repo/main/protocols.json";
+// Updated to consume data from git submodule
+import {
+  getAllProtocols,
+  getProtocolById,
+  getActiveProtocols,
+  getLastUpdated,
+  clearProtocolsCache,
+} from './protocols';
+import type { FlexibleProtocol } from './types';
 
-export interface Protocol {
-  id: string;
-  name: string;
-  website: string;
-  description: string;
-  documentation: string;
-  isActive: boolean;
-  tags: string[];
-  docsIntegration: DocsIntegrationItem[];
-  opportunities: Opportunity[];
-}
+// Re-export types for backward compatibility
+export type { FlexibleProtocol as Protocol } from './types';
 
 export interface DocsIntegrationItem {
   text: string;
@@ -20,13 +17,13 @@ export interface DocsIntegrationItem {
 
 export interface Opportunity {
   id: string;
-  type: "prover" | "sequencer" | "validator" | "full_node" | "light_client";
-  status: "mainnet" | "testnet" | "devnet";
+  type: "prover" | "sequencer" | "validator" | "full_node" | "light_client" | "relayer";
+  status: "mainnet" | "testnet" | "devnet" | "beta";
   requirements: Requirement[];
 }
 
 export interface Requirement {
-  tier: "recommended" | "minimum";
+  tier: "recommended" | "minimum" | "optimal";
   entry: "permissioned" | "permissionless";
   hardware: HardwareSpec;
 }
@@ -45,41 +42,42 @@ export interface HardwareSpec {
   notes?: string;
 }
 
-interface ProtocolsResponse {
-  protocols: Protocol[];
-  lastUpdated: string;
-}
-
-// Cache the data for the session
-let cachedData: ProtocolsResponse | null = null;
-
-// Client-side data fetching
-export async function fetchProtocols(): Promise<Protocol[]> {
-  if (cachedData) {
-    return cachedData.protocols;
-  }
-
+// Server-side data fetching using submodule
+export async function fetchProtocols(): Promise<FlexibleProtocol[]> {
   try {
-    const response = await fetch(DATA_URL, {
-      // Add cache headers for GitHub hosting
-      headers: {
-        'Cache-Control': 'max-age=300', // 5 minutes
+    // Use the submodule data directly in production
+    if (typeof window === 'undefined') {
+      // Server-side: read directly from submodule
+      return getAllProtocols();
+    } else {
+      // Client-side: fetch from API route that reads submodule
+      const response = await fetch('/api/protocols', {
+        headers: {
+          'Cache-Control': 'max-age=300', // 5 minutes
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch protocols: ${response.status}`);
       }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch protocols: ${response.status}`);
+
+      const data = await response.json();
+      return data.protocols;
     }
-    
-    cachedData = await response.json();
-    return cachedData!.protocols;
   } catch (error) {
     console.error('Error fetching protocols:', error);
-    return [];
+
+    // Fallback: try to use the direct submodule approach
+    try {
+      return getAllProtocols();
+    } catch (fallbackError) {
+      console.error('Fallback also failed:', fallbackError);
+      return [];
+    }
   }
 }
 
-// Transform data for the OperatorDashboard table format  
+// Transform data for the OperatorDashboard table format
 interface TableRow {
   id: string;
   project: {
@@ -102,48 +100,70 @@ interface TableRow {
   };
 }
 
-export function transformToTableRows(protocols: Protocol[]): TableRow[] {
+export function transformToTableRows(protocols: FlexibleProtocol[]): TableRow[] {
   const rows: TableRow[] = [];
 
   protocols.forEach(protocol => {
-    protocol.opportunities.forEach(opportunity => {
+    // Handle flexible opportunity structures
+    const opportunities = protocol.opportunities || [];
+
+    opportunities.forEach((opportunity: any) => {
+      // Support both structured and flexible requirements
+      const requirements = opportunity.requirements || [];
+
       // Prefer recommended tier, fallback to minimum if recommended doesn't exist
-      let filteredRequirements = opportunity.requirements.filter(req => req.tier === "minimum");
-      
-      // If no recommended requirements exist, use minimum as fallback
+      let filteredRequirements = requirements.filter((req: any) => req.tier === "minimum");
+
+      // If no minimum requirements exist, use recommended as fallback
       if (filteredRequirements.length === 0) {
-        filteredRequirements = opportunity.requirements.filter(req => req.tier === "recommended");
+        filteredRequirements = requirements.filter((req: any) => req.tier === "recommended");
       }
-      
-      filteredRequirements.forEach(requirement => {
-        // Generate entry condition text
-        const entryCondition = requirement.entry === "permissionless" 
-          ? requirement.hardware.notes?.includes("stake") 
-            ? "STAKE REQUIRED" 
-            : "NO STAKE"
-          : requirement.tier === "recommended" 
-            ? "TOP 200 STAKE" 
-            : "PERMISSIONED";
+
+      // If still no requirements, create a default one from any available data
+      if (filteredRequirements.length === 0 && requirements.length > 0) {
+        filteredRequirements = [requirements[0]];
+      }
+
+      filteredRequirements.forEach((requirement: any) => {
+        // Handle flexible hardware structures
+        const hardware = requirement.hardware || {};
+
+        // Generate entry condition text with flexible handling
+        let entryCondition = "NO STAKE";
+
+        if (requirement.entry === "permissioned") {
+          entryCondition = "PERMISSIONED";
+        } else if (requirement.entry === "permissionless") {
+          if (hardware.notes && hardware.notes.includes("stake")) {
+            entryCondition = "STAKE REQUIRED";
+          } else if (hardware.notes && hardware.notes.includes("top")) {
+            entryCondition = "TOP 200 STAKE";
+          }
+        }
 
         rows.push({
-          id: `${protocol.id}-${opportunity.id}-${requirement.tier}-${requirement.entry}`,
+          id: `${protocol.id}-${opportunity.id || 'default'}-${requirement.tier || 'default'}-${requirement.entry || 'default'}`,
           project: {
             icon: null, // Will be set in component
             name: protocol.name,
-            url: protocol.website.replace("https://", ""),
-            protocolId: protocol.id, // Add this for icon mapping
+            url: (protocol.website || '').replace("https://", ""),
+            protocolId: protocol.id,
           },
-          category: protocol.tags,
-          status: opportunity.status.charAt(0).toUpperCase() + opportunity.status.slice(1),
+          category: protocol.tags || [],
+          status: opportunity.status ?
+            opportunity.status.charAt(0).toUpperCase() + opportunity.status.slice(1) :
+            'Unknown',
           entry: {
-            type: requirement.entry.charAt(0).toUpperCase() + requirement.entry.slice(1),
+            type: requirement.entry ?
+              requirement.entry.charAt(0).toUpperCase() + requirement.entry.slice(1) :
+              'Unknown',
             condition: entryCondition,
           },
           hardware: {
-            cpu: `${requirement.hardware.cpuCores} cores`,
-            ram: `${requirement.hardware.ramGb}GB`,
-            storage: `${requirement.hardware.storageGb}GB`,
-            bandwith: `${requirement.hardware.upMbps}Mbps`,
+            cpu: hardware.cpuCores ? `${hardware.cpuCores} cores` : 'N/A',
+            ram: hardware.ramGb ? `${hardware.ramGb}GB` : 'N/A',
+            storage: hardware.storageGb ? `${hardware.storageGb}GB` : 'N/A',
+            bandwith: hardware.upMbps ? `${hardware.upMbps}Mbps` : 'N/A',
           },
         });
       });
@@ -154,17 +174,35 @@ export function transformToTableRows(protocols: Protocol[]): TableRow[] {
 }
 
 // Get protocols for admin dashboard (simpler format)
-export function getProtocolsForAdmin(protocols: Protocol[]) {
+export function getProtocolsForAdmin(protocols: FlexibleProtocol[]) {
   return protocols.map(p => ({
     id: p.id,
     name: p.name,
-    website: p.website,
-    isActive: p.isActive,
+    website: p.website || '',
+    isActive: p.isActive !== false, // Default to true if not specified
     createdAt: new Date().toISOString(), // Since we don't have real timestamps
   }));
 }
 
 // Clear cache when needed (useful for development)
 export function clearCache() {
-  cachedData = null;
+  clearProtocolsCache();
+}
+
+// Additional utility functions using the new submodule data
+export function getProtocolByIdFromSubmodule(id: string): FlexibleProtocol | null {
+  return getProtocolById(id);
+}
+
+export function getActiveProtocolsFromSubmodule(): FlexibleProtocol[] {
+  return getActiveProtocols();
+}
+
+export function getDataLastUpdated(): string {
+  try {
+    return getLastUpdated();
+  } catch (error) {
+    console.error('Error getting last updated timestamp:', error);
+    return new Date().toISOString();
+  }
 }
