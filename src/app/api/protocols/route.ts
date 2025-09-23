@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readProtocolsData } from '@/lib/protocols';
 
+export const dynamic = 'force-static';
+export const revalidate = 300; // 5 minutes
+
 export async function GET(request: NextRequest) {
   try {
     // Read data from the git submodule
-    const data = readProtocolsData();
+    const data = await readProtocolsData();
 
     // Set cache headers for better performance
     const response = NextResponse.json(data);

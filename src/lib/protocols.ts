@@ -1,23 +1,21 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import type { ProtocolsData, FlexibleProtocolsData, AnyProtocolsData, Protocol, FlexibleProtocol } from './types';
 
 /**
- * Path to the protocols data file from the git submodule
+ * GitHub raw URL for the protocols data file
  */
-const PROTOCOLS_DATA_PATH = join(process.cwd(), 'data', 'operators', 'protocols.json');
+const PROTOCOLS_DATA_URL = 'https://raw.githubusercontent.com/vistawtf/operators/main/protocols.json';
 
 /**
- * Cache for protocols data to avoid repeated file reads
+ * Cache for protocols data to avoid repeated API calls
  */
 let protocolsCache: AnyProtocolsData | null = null;
 let cacheTimestamp: number = 0;
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 /**
- * Reads and parses the protocols.json file from the submodule
+ * Fetches and parses the protocols.json file from GitHub
  */
-export function readProtocolsData(): AnyProtocolsData {
+export async function readProtocolsData(): Promise<AnyProtocolsData> {
   try {
     // Check cache validity
     const now = Date.now();
@@ -25,7 +23,12 @@ export function readProtocolsData(): AnyProtocolsData {
       return protocolsCache;
     }
 
-    const fileContent = readFileSync(PROTOCOLS_DATA_PATH, 'utf-8');
+    const response = await fetch(PROTOCOLS_DATA_URL);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch protocols data: ${response.status}`);
+    }
+
+    const fileContent = await response.text();
     const data = JSON.parse(fileContent) as AnyProtocolsData;
 
     // Validate basic structure
@@ -51,24 +54,24 @@ export function readProtocolsData(): AnyProtocolsData {
 /**
  * Get all protocols
  */
-export function getAllProtocols(): FlexibleProtocol[] {
-  const data = readProtocolsData();
+export async function getAllProtocols(): Promise<FlexibleProtocol[]> {
+  const data = await readProtocolsData();
   return data.protocols;
 }
 
 /**
  * Get a specific protocol by ID
  */
-export function getProtocolById(id: string): FlexibleProtocol | null {
-  const protocols = getAllProtocols();
+export async function getProtocolById(id: string): Promise<FlexibleProtocol | null> {
+  const protocols = await getAllProtocols();
   return protocols.find(protocol => protocol.id === id) || null;
 }
 
 /**
  * Get protocols filtered by tags
  */
-export function getProtocolsByTag(tag: string): FlexibleProtocol[] {
-  const protocols = getAllProtocols();
+export async function getProtocolsByTag(tag: string): Promise<FlexibleProtocol[]> {
+  const protocols = await getAllProtocols();
   return protocols.filter(protocol =>
     protocol.tags && protocol.tags.includes(tag)
   );
@@ -77,8 +80,8 @@ export function getProtocolsByTag(tag: string): FlexibleProtocol[] {
 /**
  * Get protocols filtered by operator type
  */
-export function getProtocolsByOperatorType(type: string): FlexibleProtocol[] {
-  const protocols = getAllProtocols();
+export async function getProtocolsByOperatorType(type: string): Promise<FlexibleProtocol[]> {
+  const protocols = await getAllProtocols();
   return protocols.filter(protocol =>
     protocol.opportunities &&
     protocol.opportunities.some((opp: any) => opp.type === type)
@@ -88,8 +91,8 @@ export function getProtocolsByOperatorType(type: string): FlexibleProtocol[] {
 /**
  * Get protocols filtered by status
  */
-export function getProtocolsByStatus(status: string): FlexibleProtocol[] {
-  const protocols = getAllProtocols();
+export async function getProtocolsByStatus(status: string): Promise<FlexibleProtocol[]> {
+  const protocols = await getAllProtocols();
   return protocols.filter(protocol =>
     protocol.opportunities &&
     protocol.opportunities.some((opp: any) => opp.status === status)
@@ -99,16 +102,16 @@ export function getProtocolsByStatus(status: string): FlexibleProtocol[] {
 /**
  * Get only active protocols
  */
-export function getActiveProtocols(): FlexibleProtocol[] {
-  const protocols = getAllProtocols();
+export async function getActiveProtocols(): Promise<FlexibleProtocol[]> {
+  const protocols = await getAllProtocols();
   return protocols.filter(protocol => protocol.isActive === true);
 }
 
 /**
  * Get protocol statistics
  */
-export function getProtocolStats() {
-  const protocols = getAllProtocols();
+export async function getProtocolStats() {
+  const protocols = await getAllProtocols();
 
   const stats = {
     total: protocols.length,
@@ -145,8 +148,8 @@ export function getProtocolStats() {
 /**
  * Get the last updated timestamp
  */
-export function getLastUpdated(): string {
-  const data = readProtocolsData();
+export async function getLastUpdated(): Promise<string> {
+  const data = await readProtocolsData();
   return data.lastUpdated;
 }
 
@@ -174,12 +177,12 @@ export function isValidProtocol(protocol: any): protocol is FlexibleProtocol {
 /**
  * Search protocols by query string (searches name, description, tags)
  */
-export function searchProtocols(query: string): FlexibleProtocol[] {
+export async function searchProtocols(query: string): Promise<FlexibleProtocol[]> {
   if (!query.trim()) {
-    return getAllProtocols();
+    return await getAllProtocols();
   }
 
-  const protocols = getAllProtocols();
+  const protocols = await getAllProtocols();
   const searchTerm = query.toLowerCase().trim();
 
   return protocols.filter(protocol => {

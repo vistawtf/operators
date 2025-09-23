@@ -19,8 +19,8 @@ const OperatorViewRequirements: React.FC<OperatorViewRequirementsProps> = ({
 }) => {
   // Get both minimum and recommended requirements from the first opportunity
   const requirements = protocol.opportunities[0]?.requirements || [];
-  const minRequirement = requirements.find(req => req.tier === "minimum");
-  const recRequirement = requirements.find(req => req.tier === "recommended");
+  const minRequirement = requirements.find((req: any) => req.tier === "minimum");
+  const recRequirement = requirements.find((req: any) => req.tier === "recommended");
   
   // Helper function to generate specs for any hardware
   const generateSpecs = (hardware: any) => [

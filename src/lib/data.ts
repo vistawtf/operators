@@ -190,17 +190,17 @@ export function clearCache() {
 }
 
 // Additional utility functions using the new submodule data
-export function getProtocolByIdFromSubmodule(id: string): FlexibleProtocol | null {
-  return getProtocolById(id);
+export async function getProtocolByIdFromSubmodule(id: string): Promise<FlexibleProtocol | null> {
+  return await getProtocolById(id);
 }
 
-export function getActiveProtocolsFromSubmodule(): FlexibleProtocol[] {
-  return getActiveProtocols();
+export async function getActiveProtocolsFromSubmodule(): Promise<FlexibleProtocol[]> {
+  return await getActiveProtocols();
 }
 
-export function getDataLastUpdated(): string {
+export async function getDataLastUpdated(): Promise<string> {
   try {
-    return getLastUpdated();
+    return await getLastUpdated();
   } catch (error) {
     console.error('Error getting last updated timestamp:', error);
     return new Date().toISOString();
