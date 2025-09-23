@@ -23,15 +23,6 @@ node scripts/validate.js
 node scripts/compile.js
 ```
 
-## 📊 Current Protocols
-
-- **Aztec** - L2 privacy with ZK provers
-- **Lido** - Liquid staking validators
-- **EigenDA** - Data availability operators
-- **Buildernet** - MEV-focused sequencers
-
-## 🎯 Philosophy
-
 **Facilitate flow, enable discovery.** We manually review submissions and want contributors to surprise us with insights we hadn't considered.
 
 ---
