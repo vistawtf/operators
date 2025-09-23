@@ -7,8 +7,10 @@ Community-driven operator opportunities for blockchain protocols. We use minimal
 **Three steps to contribute:**
 
 1. **Copy** any file from `protocols/`
-2. **Edit** with your protocol details
+2. **Edit** with your protocol details + add your logo to `logos/`
 3. **Submit** a pull request
+
+**Automated validation:** Every PR is automatically validated for data structure, required fields, logo presence, and security checks. You'll get immediate feedback if something needs fixing.
 
 **Bonus points** if you surprise us with operator angles we hadn't considered.
 
@@ -19,6 +21,12 @@ Only three fields are mandatory:
 - `name` - protocol display name
 - `description` - what the protocol does + operator opportunities
 
+**Logo is also required:**
+- Add your protocol logo as `logos/{id}.svg` (must match your protocol `id`)
+- SVG format only (keeps file sizes small and scalable)
+- Recommended size: 24x24px or similar square dimensions
+- Keep file size under 100KB (validation will warn if larger)
+
 **Everything else is optional.** Add whatever helps operators understand your protocol.
 
 Our flexible schema means you can include hardware requirements, custom categories, unique operator types, reward structures, governance details, or community links in any format you prefer.
@@ -28,14 +36,24 @@ Our flexible schema means you can include hardware requirements, custom categori
 ## For Maintainers
 
 ```bash
-# Validate all protocol files (JSON + required fields)
+# Validate all protocol files (comprehensive validation)
 node scripts/validate.js
 
 # Compile individual files into protocols.json
 node scripts/compile.js
 ```
 
-**Validation philosophy:** We check JSON syntax and three required fields. Everything else gets manually reviewed for quality and interesting patterns.
+**Validation philosophy:** Comprehensive automated validation ensures data integrity while maintaining flexibility for creative contributions.
+
+### GitHub Actions Integration
+
+Every PR automatically runs:
+- **Comprehensive validation:** JSON structure, required fields, data types, URL validation
+- **Logo validation:** SVG format, file size checks, required logo presence
+- **Security checks:** XSS prevention, malicious content detection
+- **Compilation testing:** Ensures all data compiles correctly
+
+Contributors get immediate feedback with specific error messages and helpful suggestions.
 
 ## Data Flow
 
