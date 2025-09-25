@@ -127,15 +127,7 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `## ✅ Validation successful!
-                
-All protocol data and logos have passed validation:
-- ✅ JSON structure and required fields
-- ✅ Logo files present and valid SVG format  
-- ✅ Security checks passed
-- ✅ File compilation successful
-
-Thank you for your contribution! 🎉`
+                body: "## ✅ Validation successful!\n\nAll protocol data and logos have passed validation:\n- ✅ JSON structure and required fields\n- ✅ Logo files present and valid SVG format\n- ✅ Security checks passed\n- ✅ File compilation successful\n\nThank you for your contribution! 🎉"
               });
             }
       
@@ -148,19 +140,7 @@ Thank you for your contribution! 🎉`
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## ❌ Validation failed
-              
-Please check the workflow logs for detailed error messages and fix the issues:
-- Check protocol JSON format and required fields
-- Ensure logos are present and valid SVG files  
-- Review security check failures
-
-Run the validation locally:
-\`\`\`bash
-node scripts/validate.js
-\`\`\`
-
-Feel free to ask for help if you need assistance! 🤝`
+              body: "## ❌ Validation failed\n\nPlease check the workflow logs for detailed error messages and fix the issues:\n- Check protocol JSON format and required fields\n- Ensure logos are present and valid SVG files\n- Review security check failures\n\nRun the validation locally:\n```bash\nnode scripts/validate.js\n```\n\nFeel free to ask for help if you need assistance! 🤝"
             });
 
 

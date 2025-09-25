@@ -6,6 +6,10 @@ on:
     paths:
       - 'protocols.json'
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   create-issue:
     runs-on: ubuntu-latest
@@ -58,7 +62,7 @@ jobs:
 
           await github.rest.issues.create({
             owner: owner,
-            repo: frontendRepo,
+            repo: repo,
             title: '🔄 Sync needed: protocols.json updated',
             body: issueBody,
             labels: ['sync', 'automated']
