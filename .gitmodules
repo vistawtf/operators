@@ -1,0 +1,3 @@
+[submodule "data/operators"]
+	path = data/operators
+	url = https://github.com/vistawtf/operators.git

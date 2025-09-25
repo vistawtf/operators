@@ -1,177 +1,174 @@
 # Vista Operator Dashboard v2
 
-A Next.js dashboard for discovering blockchain protocol operator opportunities. This version uses a **static JSON file** instead of a database for maximum simplicity.
+A Next.js dashboard for discovering blockchain protocol operator opportunities. This version uses a **git submodule** to consume protocol data from the public [operators repository](https://github.com/vistawtf/operators).
 
 ## 🚀 Quick Start
 
 ```bash
+# Clone with submodules
+git clone --recursive <this-repo-url>
+
+# Or if already cloned, initialize submodules
+npm run data:init
+
 # Install dependencies
-pnpm install
+npm install
+
+# Update protocol data (optional)
+npm run data:update
 
 # Start development server
-pnpm dev
+npm run dev
 
 # Build for production
-pnpm build
+npm run build
 ```
 
-## 📊 Data Management
+## 📊 Data Management with Git Submodule
 
-All protocol data is stored in a single JSON file instead of a database:
+The frontend consumes protocol data from a git submodule located at `data/operators/`. This allows:
 
-### Local Development
-- Data is served from `public/protocols.json`
-- Edit this file directly to add/modify protocols
+- **Separation of concerns**: Public data contributions vs private frontend
+- **External contributions**: Anyone can contribute to the operators repo
+- **Automatic updates**: Frontend stays synced with latest protocol data
+- **Version control**: Track data changes alongside code changes
 
-### Production (GitHub-hosted)
-1. Upload your `protocols.json` to a GitHub repository
-2. Update the `DATA_URL` in `src/lib/data.ts`:
-   ```typescript
-   const DATA_URL = "https://raw.githubusercontent.com/your-username/your-repo/main/protocols.json";
+### Data Flow
+
+```
+External Contributors → operators repo → Validation & Compilation → protocols.json
+                                                                      ↓
+Frontend Submodule ← Git Submodule Update ← protocols.json ← Auto-compilation
+```
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run data:init` | Initialize submodules (run once after clone) |
+| `npm run data:update` | Update submodule to latest data |
+| `npm run data:sync` | Sync and update submodule URLs and data |
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production (auto-updates data) |
+
+### Submodule Workflow
+
+1. **Development**: Use `npm run data:update` to get latest protocol data
+2. **Build**: The `prebuild` script automatically updates data before building
+3. **Deployment**: Ensure submodules are initialized in CI/CD:
+   ```bash
+   git submodule update --init --recursive
    ```
-
-## 📝 JSON Schema
-
-```json
-{
-  "protocols": [
-    {
-      "id": "protocol-id",
-      "name": "Protocol Name",
-      "website": "https://protocol.website",
-      "description": "Description of the protocol",
-      "documentation": "https://docs.protocol.website",
-      "isActive": true,
-      "tags": ["L2", "Privacy", "ZK"],
-      "opportunities": [
-        {
-          "id": "opportunity-id",
-          "type": "prover|sequencer|validator|full_node|light_client",
-          "status": "mainnet|testnet|devnet",
-          "requirements": [
-            {
-              "tier": "recommended|minimum",
-              "entry": "permissioned|permissionless",
-              "hardware": {
-                "cpuCores": 8,
-                "ramGb": 32,
-                "storageGb": 1000,
-                "storageMedia": "NVME|SSD|HDD",
-                "upMbps": 100,
-                "downMbps": 100,
-                "staticIpPreferred": true,
-                "upsRequired": false,
-                "notes": "Optional hardware notes"
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "lastUpdated": "2024-01-15T10:00:00Z"
-}
-```
-
-## 🎯 Features
-
-### ✅ What Works
-- **Operator Dashboard**: Browse all operator opportunities with filtering
-- **Protocol Pages**: Individual protocol details at `/[protocol-id]`
-- **Admin Dashboard**: View all protocols and their opportunities (read-only)
-- **Search/Filter**: Find opportunities by protocol name, category, or requirements
-- **Responsive Design**: Mobile-friendly interface
-
-### ❌ What Was Removed
-- Database (PostgreSQL + Drizzle ORM)
-- Server actions and API routes
-- Admin creation forms
-- User authentication
-- Complex backend logic
-
-## 🏗️ Architecture
-
-```
-┌─────────────────┐
-│   Next.js App   │
-├─────────────────┤
-│ Client Components│ ← Fetch JSON directly
-├─────────────────┤
-│  Static JSON    │ ← Single source of truth
-│ (GitHub/public) │
-└─────────────────┘
-```
 
 ## 📁 Project Structure
 
 ```
 src/
-├── app/                    # Next.js app router
-│   ├── [protocol]/        # Dynamic protocol pages
-│   ├── admin/dashboard/   # Admin view (read-only)
-│   └── page.tsx           # Main operator dashboard
-├── components/
-│   ├── features/          # Main UI components
-│   └── ui/               # Reusable UI elements
 ├── lib/
-│   └── data.ts           # JSON fetching & data utilities
-└── public/
-    └── protocols.json    # Static data file
+│   ├── protocols.ts      # Core data access layer
+│   ├── types.ts          # TypeScript interfaces
+│   ├── data.ts           # Legacy compatibility layer
+│   └── server-data.ts    # Server-side data fetching
+├── app/
+│   ├── api/protocols/    # API route for client-side access
+│   └── [protocol]/       # Dynamic protocol pages
+└── components/
+    └── features/         # Dashboard and view components
+
+data/
+└── operators/            # Git submodule
+    ├── protocols.json    # Compiled protocol data
+    └── protocols/        # Individual protocol files
 ```
 
-## 🔧 Adding New Protocols
+## 🔧 Data Access Patterns
 
-1. **Edit `public/protocols.json`**
-2. **Add protocol icon** to `src/components/ui/svg/protocols/`
-3. **Update icon mapping** in `src/components/features/OperatorDashboard/OperatorDashboard.tsx`
-
-Example:
+### Server-side (SSG/SSR)
 ```typescript
-const protocolIcons: Record<string, React.ReactNode> = {
-  aztec: <AztecIcon />,
-  lido: <LidoIcon />,
-  eigenda: <EigenDAIcon />,
-  buildernet: <BuildernetIcon />,
-  "your-protocol": <YourProtocolIcon />, // Add this
-};
+import { getAllProtocols, getProtocolById } from '@/lib/protocols';
+
+// Get all protocols
+const protocols = getAllProtocols();
+
+// Get specific protocol
+const protocol = getProtocolById('aztec');
 ```
 
-## 🚀 Deployment
+### Client-side
+```typescript
+import { fetchProtocols } from '@/lib/data';
 
-### Vercel (Recommended)
-```bash
-pnpm build
-# Deploy to Vercel
+// Fetch via API route
+const protocols = await fetchProtocols();
 ```
 
-### GitHub Pages
-1. Build the static site: `pnpm build && pnpm export`
-2. Deploy the `out/` folder to GitHub Pages
+### Flexible Data Structure
 
-### Self-hosted
-```bash
-pnpm build
-pnpm start
+The system supports both structured protocols (following strict schema) and flexible protocols (allowing creative contributions):
+
+```typescript
+// Structured protocol (backward compatible)
+interface Protocol {
+  id: string;
+  name: string;
+  // ... strict schema
+}
+
+// Flexible protocol (enables discoveries)
+interface FlexibleProtocol {
+  id: string;
+  name: string;
+  description: string;
+  [key: string]: any; // Allows additional properties
+}
 ```
 
-## 🛠️ Tech Stack
+## 📝 Contributing to Protocol Data
 
-- **Framework**: Next.js 15 (App Router)
-- **Styling**: TailwindCSS 4
-- **Data Tables**: TanStack React Table
-- **Type Safety**: TypeScript
-- **Data Source**: Static JSON (no database!)
+Protocol data lives in the public [operators repository](https://github.com/vistawtf/operators). To add new protocols:
 
-## 🔄 Migration Notes
+1. Fork the `operators` repository
+2. Add your protocol file to `protocols/yourprotocol.json`
+3. Submit a pull request
+4. Once merged, update this frontend: `npm run data:update`
 
-This version **completely eliminates** the backend complexity:
-- ❌ No PostgreSQL database
-- ❌ No Drizzle ORM
-- ❌ No server actions
-- ❌ No API routes
-- ❌ No environment variables
-- ✅ Simple JSON file
-- ✅ GitHub-hosted data
-- ✅ Zero backend maintenance
+The operators repo has minimal validation (JSON + basic fields) to encourage creative contributions and community discovery of new operator patterns.
 
-Perfect for static deployments and maximum simplicity!
+## 🏗 Development
+
+### Local Development
+- Data is read from `data/operators/protocols.json`
+- Use `npm run data:update` to sync latest changes
+- The development server supports both submodule and fallback data sources
+
+### Production Deployment
+- Ensure submodules are initialized in build process
+- The `prebuild` script automatically updates data
+- API routes serve data for client-side components
+
+### Environment Variables
+No environment variables required - all data comes from the git submodule.
+
+## 📊 Data Features
+
+- **Flexible schema**: Supports both structured and creative protocol contributions
+- **Automatic caching**: 5-minute cache for performance
+- **Search functionality**: Search by name, description, tags
+- **Filtering**: By status, operator type, tags
+- **Statistics**: Protocol counts and distributions
+- **Type safety**: Full TypeScript support with flexible interfaces
+
+## 🔄 Updating Protocol Data
+
+The frontend automatically stays in sync with the operators repository:
+
+1. **Manual Update**: `npm run data:update`
+2. **Build-time Update**: `npm run build` (automatic via `prebuild`)
+3. **CI/CD**: Include submodule update in deployment pipeline
+
+This ensures the frontend always has the latest protocol information from community contributions.
+
+---
+
+For questions about the frontend, open an issue here.
+For questions about protocol data, visit the [operators repository](https://github.com/vistawtf/operators).
