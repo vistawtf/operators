@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "npm run sync-logos && next build",
+    "build:nosync": "next build",
     "start": "next start",
     "lint": "next lint",
     "sync-logos": "node scripts/sync-logos.js",

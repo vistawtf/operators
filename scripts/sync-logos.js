@@ -85,5 +85,7 @@ async function syncLogos() {
 // Run the sync
 syncLogos().catch((error) => {
   console.error('❌ Logo sync failed:', error);
-  process.exit(1);
+  console.log('⚠️  Continuing build anyway - fallback icons will be used');
+  // Don't exit with error - let the build continue
+  process.exit(0);
 });
