@@ -8,21 +8,8 @@ import {
   OperatorDashboardFilter,
   OperatorDashboardHeader,
 } from ".";
-import {
-  LidoIcon,
-  AztecIcon,
-  EigenDAIcon,
-  BuildernetIcon,
-} from "@/components/ui/svg/protocols";
 import { fetchProtocols, transformToTableRows } from "@/lib/data";
-
-// Map protocol IDs to icons
-const protocolIcons: Record<string, React.ReactNode> = {
-  aztec: <AztecIcon />,
-  lido: <LidoIcon />,
-  eigenda: <EigenDAIcon />,
-  buildernet: <BuildernetIcon />,
-};
+import { getProtocolIcon } from "@/lib/protocol-icons";
 
 const OperatorDashboard: React.FC = () => {
   const [allData, setAllData] = useState<Row[]>([]);
@@ -41,8 +28,7 @@ const OperatorDashboard: React.FC = () => {
           ...row,
           project: {
             ...row.project,
-            icon: protocolIcons[row.project.protocolId || ''] || 
-                  <div className="w-6 h-6 bg-gray-400 rounded-full" />
+            icon: getProtocolIcon(row.project.protocolId || '')
           }
         }));
         
