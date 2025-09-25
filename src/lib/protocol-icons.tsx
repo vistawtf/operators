@@ -1,12 +1,12 @@
 import React from 'react';
 
-// Dynamic SVG icon component that loads from submodule
+// Dynamic SVG icon component that loads from synced logos
 export const ProtocolIcon: React.FC<{ 
   protocolId: string; 
   className?: string 
 }> = ({ protocolId, className = "w-6 h-6" }) => {
   const [hasError, setHasError] = React.useState(false);
-  const logoPath = `/data/operators/logos/${protocolId.toLowerCase()}.svg`;
+  const logoPath = `/protocol-icons/${protocolId.toLowerCase()}.svg`;
   
   if (hasError) {
     return <DefaultProtocolIcon className={className} />;

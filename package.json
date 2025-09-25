@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run sync-logos && next build",
     "start": "next start",
     "lint": "next lint",
+    "sync-logos": "node scripts/sync-logos.js",
     "postinstall": "echo 'Dependencies installed successfully'"
   },
   "dependencies": {
