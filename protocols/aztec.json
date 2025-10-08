@@ -2,7 +2,7 @@
   "id": "aztec",
   "name": "Aztec",
   "website": "https://aztec.network",
-  "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs. Currently in Adversarial Testnet with 23,000+ operators.",
+  "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs. Currently in Adversarial Testnet with 23,000+ active operators.",
   "documentation": "https://docs.aztec.network",
   "isActive": true,
   "tags": [
