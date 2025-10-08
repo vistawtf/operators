@@ -61,10 +61,10 @@ jobs:
         echo "📅 Last updated: $LAST_UPDATED"
 
     - name: Create sync issue in frontend repo
-      if: steps.changes.outputs.changed == 'true'
+      if: steps.changes.outputs.changed == 'true' && secrets.FRONTEND_PAT != ''
       uses: actions/github-script@v7
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.FRONTEND_PAT }}
         script: |
           const owner = context.repo.owner;
           const currentRepo = context.repo.repo;
@@ -100,36 +100,51 @@ jobs:
           *This issue was automatically created by the operators repo when protocols.json was updated.*
           `;
 
-          // Check if there's already an open issue
-          const { data: issues } = await github.rest.issues.listForRepo({
-            owner: owner,
-            repo: frontendRepo,
-            state: 'open',
-            labels: 'sync,automated'
-          });
-
-          const existingIssue = issues.find(issue =>
-            issue.title.includes('Operators Data Updated') ||
-            issue.title.includes('Sync needed')
-          );
-
-          if (existingIssue) {
-            // Update existing issue with comment
-            await github.rest.issues.createComment({
+          try {
+            // Check if there's already an open issue
+            const { data: issues } = await github.rest.issues.listForRepo({
               owner: owner,
               repo: frontendRepo,
-              issue_number: existingIssue.number,
-              body: `🔄 New update available!\n\n${issueBody}`
+              state: 'open',
+              labels: 'sync,automated'
             });
-            console.log(`Updated existing issue #${existingIssue.number}`);
-          } else {
-            // Create new issue
-            await github.rest.issues.create({
-              owner: owner,
-              repo: frontendRepo,
-              title: '🔄 Operators Data Updated - Sync Required',
-              body: issueBody,
-              labels: ['sync', 'automated']
-            });
-            console.log('Created new sync issue in operators-frontend');
+
+            const existingIssue = issues.find(issue =>
+              issue.title.includes('Operators Data Updated') ||
+              issue.title.includes('Sync needed')
+            );
+
+            if (existingIssue) {
+              // Update existing issue with comment
+              await github.rest.issues.createComment({
+                owner: owner,
+                repo: frontendRepo,
+                issue_number: existingIssue.number,
+                body: `🔄 New update available!\n\n${issueBody}`
+              });
+              console.log(`✅ Updated existing issue #${existingIssue.number}`);
+            } else {
+              // Create new issue
+              const { data: issue } = await github.rest.issues.create({
+                owner: owner,
+                repo: frontendRepo,
+                title: '🔄 Operators Data Updated - Sync Required',
+                body: issueBody,
+                labels: ['sync', 'automated']
+              });
+              console.log(`✅ Created new sync issue #${issue.number} in operators-frontend`);
+            }
+          } catch (error) {
+            console.error('Failed to create/update issue:', error.message);
+            core.setFailed(`Failed to create sync issue: ${error.message}`);
           }
+
+    - name: Notify sync needed (fallback)
+      if: steps.changes.outputs.changed == 'true' && secrets.FRONTEND_PAT == ''
+      run: |
+        echo "::warning::📢 protocols.json was updated but FRONTEND_PAT secret is not configured"
+        echo "::warning::To enable automatic issue creation in operators-frontend, add a FRONTEND_PAT secret with repo access"
+        echo ""
+        echo "ℹ️  Sync instructions:"
+        echo "   cd operators-frontend/data/operators"
+        echo "   git pull origin main"
