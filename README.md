@@ -107,6 +107,8 @@ Our flexible schema means you can include custom categories, unique operator typ
 
 ## For Maintainers
 
+### Quick Reference
+
 ```bash
 # Validate all protocol files (comprehensive validation)
 node scripts/validate.js
@@ -116,6 +118,69 @@ node scripts/compile.js
 ```
 
 **Validation philosophy:** Comprehensive automated validation ensures data integrity while maintaining flexibility for creative contributions.
+
+### Complete Update Workflow
+
+When updating protocol data as a maintainer with direct repository access:
+
+#### 1. Update Protocol Files (operators repo)
+
+```bash
+# Edit individual protocol files
+# Example: protocols/avail.json, protocols/celestia.json, etc.
+
+# Validate your changes
+node scripts/validate.js
+
+# Compile individual files into protocols.json
+node scripts/compile.js
+
+# Commit and push
+git add protocols/*.json protocols.json
+git commit -m "update protocol descriptions"
+git push
+```
+
+**If you encounter conflicts during push:**
+
+```bash
+# Pull with rebase
+git pull --rebase
+
+# If there are conflicts in protocols.json, recompile to resolve
+node scripts/compile.js
+
+# Mark as resolved and continue
+git add protocols.json
+git rebase --continue
+
+# Push changes
+git push
+```
+
+#### 2. Update Frontend Submodule (operators-frontend repo)
+
+After pushing changes to the operators repo:
+
+```bash
+# Navigate to frontend repo
+cd ../operators-frontend
+
+# Update submodule to latest
+git submodule update --remote data/operators
+
+# Commit the submodule update
+git add data/operators
+git commit -m "chore: update operators submodule"
+git push
+```
+
+**The frontend will automatically:**
+- Pull the latest protocol data via the submodule
+- Sync logos during build (via `npm run sync-logos`)
+- Deploy changes (if auto-deploy is configured)
+
+**Important:** Always edit individual protocol files in `protocols/` directory, then run the compile script. Never edit `protocols.json` directly as it's auto-generated.
 
 ### GitHub Actions Integration
 
