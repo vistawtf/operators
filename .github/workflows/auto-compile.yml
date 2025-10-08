@@ -60,91 +60,43 @@ jobs:
         echo "✅ Compiled $PROTOCOLS_COUNT protocols"
         echo "📅 Last updated: $LAST_UPDATED"
 
-    - name: Create sync issue in frontend repo
+    - name: Trigger frontend sync workflow
       if: steps.changes.outputs.changed == 'true' && secrets.FRONTEND_PAT != ''
       uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.FRONTEND_PAT }}
         script: |
           const owner = context.repo.owner;
-          const currentRepo = context.repo.repo;
           const frontendRepo = 'operators-frontend';
 
-          const issueBody = `## 🔄 Operators Data Updated
-
-          The operators repository has been updated with new or modified protocols.
-
-          **Changes:**
-          - **Protocols count:** ${{ steps.info.outputs.count }}
-          - **Last updated:** ${{ steps.info.outputs.updated }}
-          - **Commit:** [\`${{ github.sha }}\`](https://github.com/${owner}/${currentRepo}/commit/${{ github.sha }})
-
-          **Action needed:**
-          Update the git submodule to pull the latest changes:
-
-          \`\`\`bash
-          cd data/operators
-          git pull origin main
-          cd ../..
-          git add data/operators
-          git commit -m "chore: update operators data submodule"
-          git push
-          \`\`\`
-
-          **Or use npm script:**
-          \`\`\`bash
-          npm run sync-logos  # Also syncs logos from GitHub
-          \`\`\`
-
-          ---
-          *This issue was automatically created by the operators repo when protocols.json was updated.*
-          `;
-
           try {
-            // Check if there's already an open issue
-            const { data: issues } = await github.rest.issues.listForRepo({
+            await github.rest.repos.createDispatchEvent({
               owner: owner,
               repo: frontendRepo,
-              state: 'open',
-              labels: 'sync,automated'
+              event_type: 'operators-data-updated',
+              client_payload: {
+                protocols_count: ${{ steps.info.outputs.count }},
+                last_updated: '${{ steps.info.outputs.updated }}',
+                commit_sha: '${{ github.sha }}',
+                commit_url: 'https://github.com/${{ github.repository }}/commit/${{ github.sha }}'
+              }
             });
-
-            const existingIssue = issues.find(issue =>
-              issue.title.includes('Operators Data Updated') ||
-              issue.title.includes('Sync needed')
-            );
-
-            if (existingIssue) {
-              // Update existing issue with comment
-              await github.rest.issues.createComment({
-                owner: owner,
-                repo: frontendRepo,
-                issue_number: existingIssue.number,
-                body: `🔄 New update available!\n\n${issueBody}`
-              });
-              console.log(`✅ Updated existing issue #${existingIssue.number}`);
-            } else {
-              // Create new issue
-              const { data: issue } = await github.rest.issues.create({
-                owner: owner,
-                repo: frontendRepo,
-                title: '🔄 Operators Data Updated - Sync Required',
-                body: issueBody,
-                labels: ['sync', 'automated']
-              });
-              console.log(`✅ Created new sync issue #${issue.number} in operators-frontend`);
-            }
+            console.log('✅ Triggered sync workflow in operators-frontend');
           } catch (error) {
-            console.error('Failed to create/update issue:', error.message);
-            core.setFailed(`Failed to create sync issue: ${error.message}`);
+            console.error('⚠️  Failed to trigger frontend workflow:', error.message);
+            console.log('Frontend will need manual sync');
           }
 
-    - name: Notify sync needed (fallback)
-      if: steps.changes.outputs.changed == 'true' && secrets.FRONTEND_PAT == ''
+    - name: Sync complete notification
+      if: steps.changes.outputs.changed == 'true'
       run: |
-        echo "::warning::📢 protocols.json was updated but FRONTEND_PAT secret is not configured"
-        echo "::warning::To enable automatic issue creation in operators-frontend, add a FRONTEND_PAT secret with repo access"
+        echo "✅ protocols.json compiled and pushed"
+        echo "📊 Protocols: ${{ steps.info.outputs.count }}"
+        echo "🕒 Updated: ${{ steps.info.outputs.updated }}"
         echo ""
-        echo "ℹ️  Sync instructions:"
-        echo "   cd operators-frontend/data/operators"
-        echo "   git pull origin main"
+        if [ -z "${{ secrets.FRONTEND_PAT }}" ]; then
+          echo "ℹ️  To enable automatic frontend sync, add FRONTEND_PAT secret"
+          echo "   See .github/SETUP.md for instructions"
+        else
+          echo "🔔 Frontend sync workflow triggered automatically"
+        fi
