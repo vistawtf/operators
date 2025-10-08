@@ -5,7 +5,10 @@
   "description": "EigenDA is a data availability layer built on EigenLayer, providing highly scalable and secure data storage for rollups and other blockchain applications. As an EigenDA operator, you contribute to the network's data availability infrastructure while earning rewards through restaking mechanisms. The protocol leverages Ethereum's security through EigenLayer's restaking primitive.",
   "documentation": "https://docs.eigenda.xyz",
   "isActive": true,
-  "tags": ["DA", "AVS"],
+  "tags": [
+    "DA",
+    "AVS"
+  ],
   "docsIntegration": [
     {
       "text": "EigenDA operator documentation includes setup guides for data availability nodes and restaking requirements"
@@ -33,8 +36,7 @@
             "upMbps": 1000,
             "downMbps": 1000,
             "staticIpPreferred": true,
-            "upsRequired": true,
-            "notes": "Must be in top 200 operators by stake"
+            "upsRequired": true
           }
         }
       ]

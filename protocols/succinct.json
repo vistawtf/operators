@@ -1,0 +1,57 @@
+{
+  "id": "succinct",
+  "name": "Succinct",
+  "website": "https://succinct.xyz",
+  "description": "Succinct launched mainnet August 5, 2025 as a decentralized ZK prover network with 35+ protocols supported, 1,700+ unique programs, and 5M+ proofs fulfilled securing $4B+ value. Provers compete in reverse auction system earning PROVE tokens. Fully permissionless with 1,000 PROVE minimum stake (~$1,000+). Reference implementation available but competitive proving requires GPU clusters and custom optimization.",
+  "documentation": "https://docs.succinct.xyz/",
+  "isActive": true,
+  "tags": [
+    "ZK",
+    "Prover",
+    "Mainnet",
+    "GPU-Required"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://docs.succinct.xyz/ with prover quickstart, SP1 zkVM guides, and network architecture"
+    },
+    {
+      "text": "Reference implementation available but explicitly 'not competitive with actively optimized provers'. Professional setups use multiple NVIDIA L4s, L40s, 3090s, or 4090s."
+    },
+    {
+      "text": "PROVE token launched August 5, 2025. Binance airdrop (15M tokens, 1.5% supply) completed July 18-21, 2025 for BNB stakers."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "succinct-prover-competitive",
+      "type": "zk_prover",
+      "status": "mainnet",
+      "entryDescription": "Requires 1,000 PROVE tokens staked (~$1,000+)",
+      "requirements": [
+        {
+          "tier": "institutional",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 16,
+            "ramGb": 64,
+            "storageGb": 1000,
+            "storageMedia": "NVME",
+            "upMbps": 1000,
+            "downMbps": 1000,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "Competitive Production Setup: Multiple NVIDIA L4s, L40s, 3090s, or 4090s in coordinated GPU clusters.",
+              "Custom optimization required.",
+              "Data center infrastructure.",
+              "Estimated $10,000-50,000+ for hardware plus electricity.",
+              "Professional proving operation only.",
+              "Provers compete in reverse auction, must win bids to earn fees."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

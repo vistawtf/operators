@@ -6,36 +6,36 @@ const path = require('path');
 function validateLogo(protocolId) {
   const logosDir = path.join(__dirname, '..', 'logos');
   const logoPath = path.join(logosDir, `${protocolId.toLowerCase()}.svg`);
-  
+
   // Check if logo file exists
   if (!fs.existsSync(logoPath)) {
     console.error(`❌ ${protocolId} - Missing logo: ${protocolId.toLowerCase()}.svg`);
     return false;
   }
-  
+
   try {
     // Read and validate SVG content
     const logoContent = fs.readFileSync(logoPath, 'utf8');
-    
+
     // Basic SVG validation
     if (!logoContent.includes('<svg')) {
       console.error(`❌ ${protocolId} - Logo is not a valid SVG file`);
       return false;
     }
-    
+
     // Check if file is not empty
     if (logoContent.trim().length === 0) {
       console.error(`❌ ${protocolId} - Logo file is empty`);
       return false;
     }
-    
+
     // Check file size (warn if too large)
     const stats = fs.statSync(logoPath);
     const fileSizeKB = stats.size / 1024;
     if (fileSizeKB > 100) {
       console.warn(`⚠️  ${protocolId} - Logo file is large (${fileSizeKB.toFixed(1)}KB). Consider optimizing.`);
     }
-    
+
     console.log(`✅ ${protocolId} - Logo valid (${fileSizeKB.toFixed(1)}KB)`);
     return true;
   } catch (error) {
@@ -68,7 +68,20 @@ function validateOpportunities(opportunities, protocolId) {
     return false;
   }
   
-  const validTypes = ['validator', 'prover', 'sequencer', 'relayer', 'full_node', 'light_client'];
+  const validTypes = [
+    'validator',
+    'minipool_operator',
+    'dvt_operator',
+    'vault_operator',
+    'sequencer',
+    'prover',
+    'zk_prover',
+    'full_node',
+    'light_client',
+    'light_node',
+    'relayer',
+    'infrastructure_tool'
+  ];
   const validStatuses = ['testnet', 'mainnet', 'beta', 'devnet'];
   
   for (let i = 0; i < opportunities.length; i++) {
@@ -105,7 +118,7 @@ function validateRequirements(requirements, protocolId, oppIndex) {
     return false;
   }
   
-  const validTiers = ['minimum', 'recommended', 'optimal'];
+  const validTiers = ['minimum', 'recommended', 'institutional', 'datacenter', 'optimal'];
   const validEntries = ['permissionless', 'permissioned'];
   const validStorageMedia = ['SSD', 'NVME', 'HDD'];
   

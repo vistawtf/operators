@@ -1,0 +1,56 @@
+{
+  "id": "puffer-finance",
+  "name": "Puffer Finance",
+  "website": "https://puffer.fi",
+  "description": "Puffer is a native liquid restaking protocol on EigenLayer with 500,000+ ETH deposited and 5,000+ node operators registered. Current NoOps model requires 2 ETH bond (converted to pufETH earning restaking yield) plus minimum 28 Validator Tickets (VTs). Operators retain 100% of consensus/execution rewards plus EigenLayer AVS rewards. Season 2 points program active.",
+  "documentation": "https://docs.puffer.fi/",
+  "isActive": true,
+  "tags": [
+    "LRT",
+    "Mainnet",
+    "EigenLayer"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://docs.puffer.fi/ covering node requirements, VT system, and pufETH mechanics"
+    },
+    {
+      "text": "VT (Validator Ticket) system: 1 VT burns per day while operating. Minimum 7 VTs maintained or face ejection. VTs are ERC-20 tradeable tokens."
+    },
+    {
+      "text": "Originally-planned 1 ETH bond option using Secure-Signer (TEE) unavailable on mainnet as of October 2025. Puffer V2 plans minimal pufETH collateral."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "puffer-noops",
+      "type": "validator",
+      "status": "mainnet",
+      "entryDescription": "Requires 2 ETH bond (converted to pufETH) + minimum 28 Validator Tickets (~0.8 ETH)",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 4,
+            "ramGb": 16,
+            "storageGb": 2000,
+            "storageMedia": "SSD",
+            "upMbps": 25,
+            "downMbps": 25,
+            "staticIpPreferred": false,
+            "upsRequired": false,
+            "notes": [
+              "Total entry ~2.8 ETH. Protocol provides remaining 30 ETH.",
+              "1 VT burns per day, minimum 7 VTs maintained.",
+              "Operators earn 100% of consensus/execution rewards plus EigenLayer restaking rewards.",
+              "Season 2 active with 3x multiplier.",
+              "No KYC.",
+              "VTs are ERC-20 tradeable."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": "avail",
+  "name": "Avail Project",
+  "website": "https://availproject.org",
+  "description": "Avail is a modular blockchain focused on data availability (DA) and scalability. Mainnet launched July 23, 2024 with 105 active validators (March 2025), targeting growth to 1,000 initially. Uses Nominated Proof of Stake (NPoS) with validators elected each era. Direct nomination requires 1,000 AVAIL minimum, nomination pools 100 AVAIL. No slashing. Room for validator expansion.",
+  "documentation": "https://docs.availproject.org/",
+  "isActive": true,
+  "tags": [
+    "Data-Availability",
+    "Mainnet",
+    "Permissionless"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://docs.availproject.org/ with validator setup, light client guide, and developer tools"
+    },
+    {
+      "text": "Integrations: Optimism, Arbitrum Orbit, zkSync rollups. SDKs: Rust SDK, Turbo DA for high-throughput apps"
+    },
+    {
+      "text": "AVAIL token airdrop completed 2024. No new airdrop active October 2025. No slashing mechanism - lower operational risk."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "avail-validator",
+      "type": "validator",
+      "status": "mainnet",
+      "entryDescription": "Minimum 1,000 AVAIL for direct nomination (or 100 AVAIL via nomination pools)",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 4,
+            "ramGb": 8,
+            "storageGb": 500,
+            "storageMedia": "NVME",
+            "upMbps": 50,
+            "downMbps": 50,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "Validator: 1,000 AVAIL minimum for direct nomination.",
+              "No KYC, no waitlist, no slashing.",
+              "Lower hardware requirements than Ethereum.",
+              "Earn staking rewards proportional to active stake + DA fees in AVAIL.",
+              "Purely stake-based election."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "avail-light-client",
+      "type": "light_client",
+      "status": "mainnet",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 1,
+            "ramGb": 4,
+            "storageGb": 50,
+            "storageMedia": "SSD",
+            "upMbps": 10,
+            "downMbps": 10,
+            "staticIpPreferred": false,
+            "upsRequired": false,
+            "notes": [
+              "Light Client: Minimal resources required (1-2 cores).",
+              "4x more efficient than Ethereum.",
+              "1MB/s network usage.",
+              "Runs on mobile devices, laptops.",
+              "Data Availability Sampling participant.",
+              "No economic rewards - contribution to DA security only."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

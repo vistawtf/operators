@@ -2,30 +2,92 @@
   "id": "aztec",
   "name": "Aztec",
   "website": "https://aztec.network",
-  "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs.",
+  "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs. Currently in Adversarial Testnet with 23,000+ operators.",
   "documentation": "https://docs.aztec.network",
   "isActive": true,
-  "tags": ["L2", "Privacy", "ZK"],
+  "tags": [
+    "L2",
+    "Privacy",
+    "ZK",
+    "Testnet"
+  ],
   "docsIntegration": [
     {
-      "text": "Official documentation for operators (running sequencers, full nodes, provers) is available"
+      "text": "Official documentation for operators (running sequencers, full nodes, provers) available at https://docs.aztec.network/the_aztec_network/guides/run_nodes"
     },
     {
       "text": "Integrations/tools include Aztec.js (library to interact with contracts) and Aztec.nr (Noir framework for private smart contracts). The network uses Noir for zk circuits."
+    },
+    {
+      "text": "Setup time: 30-60 minutes. Monthly cost: $20-130 for VPS. Slashing active (3 strikes), home-staker friendly with 20min downtime protection."
     }
   ],
   "opportunities": [
+    {
+      "id": "aztec-sequencer",
+      "type": "sequencer",
+      "status": "testnet",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 8,
+            "ramGb": 16,
+            "storageGb": 1000,
+            "storageMedia": "SSD",
+            "upMbps": 25,
+            "downMbps": 25,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "No GPU required",
+              "Port 40400 must be forwarded.",
+              "Requires 0.1 ETH Sepolia (free from faucets).",
+              "ZKPassport verification required.",
+              "Daily throttling ~75 new validators."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aztec-full-node",
+      "type": "full_node",
+      "status": "testnet",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 8,
+            "ramGb": 16,
+            "storageGb": 1000,
+            "storageMedia": "SSD",
+            "upMbps": 25,
+            "downMbps": 25,
+            "staticIpPreferred": false,
+            "upsRequired": false,
+            "notes": [
+              "No GPU required",
+              "Most private way to interact with Aztec",
+              "Requires L1 RPC endpoints with blob support."
+            ]
+          }
+        }
+      ]
+    },
     {
       "id": "aztec-prover",
       "type": "prover",
       "status": "testnet",
       "requirements": [
         {
-          "tier": "recommended",
+          "tier": "institutional",
           "entry": "permissionless",
           "hardware": {
-            "cpuCores": 8,
-            "ramGb": 32,
+            "cpuCores": 16,
+            "ramGb": 128,
             "storageGb": 1000,
             "storageMedia": "NVME",
             "iopsRead": 50000,
@@ -34,24 +96,13 @@
             "downMbps": 100,
             "staticIpPreferred": true,
             "upsRequired": false,
-            "notes": "GPU acceleration recommended for proving"
-          }
-        },
-        {
-          "tier": "minimum",
-          "entry": "permissionless",
-          "hardware": {
-            "cpuCores": 4,
-            "ramGb": 16,
-            "storageGb": 500,
-            "storageMedia": "SSD",
-            "iopsRead": 20000,
-            "iopsWrite": 15000,
-            "upMbps": 50,
-            "downMbps": 50,
-            "staticIpPreferred": false,
-            "upsRequired": false,
-            "notes": "Basic setup for testing"
+            "notes": [
+              "NO GPU needed (CPU-based proving).",
+              "Full setup requires ~40 machines @ 16 cores/128GB each.",
+              "Monthly cost $10,000+",
+              "NO active incentive program.",
+              "Network throttled to 0.2 TPS."
+            ]
           }
         }
       ]

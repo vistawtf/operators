@@ -1,0 +1,81 @@
+{
+  "id": "celestia",
+  "name": "Celestia",
+  "website": "https://celestia.org",
+  "description": "Celestia is a modular blockchain specializing in data availability (DA). Mainnet Beta launched October 2023 with 100 validator slots in active set. Light nodes are extremely accessible (run on mobile devices) and critical for Data Availability Sampling security model. Foundation Delegation Program provides path to validator participation via 4-month application cycles with 12-month delegations.",
+  "documentation": "https://docs.celestia.org/",
+  "isActive": true,
+  "tags": [
+    "Data-Availability",
+    "Mainnet",
+    "Modular-Blockchain"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://docs.celestia.org/ covering node setup, DAS mechanics, and rollup integration"
+    },
+    {
+      "text": "Foundation Delegation Program Cohort 5 opened June 1, 2025. Cohort 6 expected late 2025/early 2026."
+    },
+    {
+      "text": "Light nodes conduct Data Availability Sampling (DAS) and run on mobile devices - no economic rewards but critical for DA security."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "celestia-validator",
+      "type": "validator",
+      "status": "mainnet",
+      "entryDescription": "Need hundreds of thousands to millions of TIA delegated to reach top 100 active set",
+      "requirements": [
+        {
+          "tier": "institutional",
+          "entry": "permissioned",
+          "hardware": {
+            "cpuCores": 8,
+            "ramGb": 32,
+            "storageGb": 2000,
+            "storageMedia": "NVME",
+            "upMbps": 100,
+            "downMbps": 100,
+            "staticIpPreferred": true,
+            "upsRequired": true,
+            "notes": [
+              "Active set limited to 100 validators.",
+              "Foundation Delegation Program offers path via application (KYC, 1+ month testnet operation, non-Hetzner/OVH hosting, 99%+ uptime).",
+              "Archival bridge nodes required.",
+              "Earn 3-4% staking APY + blob fees."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "celestia-light-node",
+      "type": "light_node",
+      "status": "mainnet",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 1,
+            "ramGb": 2,
+            "storageGb": 25,
+            "storageMedia": "SSD",
+            "upMbps": 25,
+            "downMbps": 25,
+            "staticIpPreferred": false,
+            "upsRequired": false,
+            "notes": [
+              "Light Node: Runs on mobile devices, laptops, smartwatches.",
+              "Conducts Data Availability Sampling (DAS) critical for network security.",
+              "No economic rewards - contribution to DA security model only.",
+              "Important for modular blockchain architecture validation."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

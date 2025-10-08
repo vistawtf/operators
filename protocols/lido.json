@@ -5,7 +5,10 @@
   "description": "Lido is a liquid staking protocol that allows users to stake their ETH while maintaining liquidity through stETH tokens. As a validator operator for Lido, you help secure the Ethereum network while earning staking rewards. Lido democratizes access to Ethereum staking by removing the 32 ETH minimum requirement and technical barriers.",
   "documentation": "https://docs.lido.fi",
   "isActive": true,
-  "tags": ["LST", "Staking"],
+  "tags": [
+    "LST",
+    "Staking"
+  ],
   "docsIntegration": [
     {
       "text": "Official validator operator documentation covers node setup, key management, and monitoring requirements"
@@ -33,8 +36,7 @@
             "upMbps": 100,
             "downMbps": 100,
             "staticIpPreferred": true,
-            "upsRequired": true,
-            "notes": "Requires 32 ETH stake"
+            "upsRequired": true
           }
         }
       ]

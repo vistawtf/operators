@@ -1,0 +1,55 @@
+{
+  "id": "rocket-pool",
+  "name": "Rocket Pool",
+  "website": "https://rocketpool.net",
+  "description": "Rocket Pool is a decentralized Ethereum staking protocol with 4,016 node operators running 19,024 minipools. Saturn 0 upgrade (October 28, 2024) made RPL collateral optional, enabling ETH-only minipools with 8 ETH bond earning 5% base commission. Saturn 1 upgrade launching January 19, 2026 will introduce 4 ETH minipools (LEB4).",
+  "documentation": "https://docs.rocketpool.net/",
+  "isActive": true,
+  "tags": [
+    "LST",
+    "Mainnet",
+    "Permissionless"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Comprehensive documentation at https://docs.rocketpool.net/ with Smart Node setup, minipool management, and migration guides"
+    },
+    {
+      "text": "Optional Smoothing Pool socializes MEV and EL rewards across participants for consistent payouts every 28 days"
+    },
+    {
+      "text": "Saturn 1 upgrade (January 19, 2026) introduces 4 ETH minipools with Megapools for easier management. Saturn 2 will offer 1.5 ETH bonds."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "rocket-pool-minipool-operator",
+      "type": "minipool_operator",
+      "status": "mainnet",
+      "entryDescription": "Requires 8 ETH bond + 0.1 ETH for gas (total 8.1 ETH)",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 4,
+            "ramGb": 16,
+            "storageGb": 2000,
+            "storageMedia": "NVME",
+            "upMbps": 10,
+            "downMbps": 10,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "ETH-only minipools earn 5% base commission on 24 ETH borrowed from protocol",
+              "Optional RPL staking (10-15% of borrowed ETH) increases commission to 10-14% plus RPL inflation rewards",
+              "No KYC, no waitlist",
+              "Operational since November 2021 with proven track record",
+              "Saturn 1 (January 19, 2026) reduces minimum to 4 ETH"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

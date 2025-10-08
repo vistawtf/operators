@@ -1,0 +1,56 @@
+{
+  "id": "commit-boost",
+  "name": "Commit-Boost",
+  "website": "https://commit-boost.org",
+  "description": "Commit-Boost is an open-source validator sidecar installed alongside Ethereum validators to enable participation in proposer commitment protocols (preconfirmations, inclusion lists). Used by 20% of Ethereum mainnet validators as of August 2025. This is infrastructure software, not a staking protocol - requires no token, no collateral beyond the 32 ETH your validator already has.",
+  "documentation": "https://commit-boost.github.io/commit-boost-client/",
+  "isActive": true,
+  "tags": [
+    "Infrastructure",
+    "MEV",
+    "Mainnet"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://commit-boost.github.io/commit-boost-client/ with node operator and developer guides"
+    },
+    {
+      "text": "Modular architecture supports mev-commit, Bolt Protocol, Tai-yi, inclusion lists via il-boost. MEV-Boost replacement with per-key relay configuration."
+    },
+    {
+      "text": "Major operators using it: P2P.org, Stakely, Chorus One. No native token, no airdrop - public good maintained by not-for-profit entity."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "commit-boost-sidecar",
+      "type": "infrastructure_tool",
+      "status": "mainnet",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 0,
+            "ramGb": 1,
+            "storageGb": 10,
+            "storageMedia": "SSD",
+            "upMbps": 0,
+            "downMbps": 0,
+            "staticIpPreferred": false,
+            "upsRequired": false,
+            "notes": [
+              "Negligible overhead (<5% CPU, <1GB RAM, <10GB storage).",
+              "Installs alongside existing Ethereum validator.",
+              "No additional hardware needed beyond your validator node.",
+              "Enables preconfirmation rewards from modules like mev-commit, Bolt, Espresso.",
+              "Installation via binary, Docker, or Kubernetes Helm Chart.",
+              "No token, no stake required.",
+              "Free upgrade for all validators."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

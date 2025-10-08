@@ -1,0 +1,86 @@
+{
+  "id": "etherfi",
+  "name": "EtherFi",
+  "website": "https://ether.fi",
+  "description": "EtherFi is a liquid staking protocol with $3.26B+ TVL. Operation Solo Staker program offers zero-bond entry for accepted applicants using DVT (Obol for Solo Stakers, SSV for professional operators) to eliminate slashing risk. 40+ operators across multiple cohorts. Path 1 requires 2 ETH bond without application. Path 2 (zero-bond) requires application, KYC, and 2-year commitment.",
+  "documentation": "https://etherfi.gitbook.io/",
+  "isActive": true,
+  "tags": [
+    "LST",
+    "LRT",
+    "Mainnet",
+    "DVT"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://etherfi.gitbook.io/ covering staking, node operation, and Operation Solo Staker program"
+    },
+    {
+      "text": "Uses Obol DVT for Solo Stakers and SSV for professional operators. EigenLayer restaking activated October 15, 2025."
+    },
+    {
+      "text": "ETHFI Season 2 active with $7M buyback program. 5% operator share on 10-15 validators with quarterly payouts."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "etherfi-solo-staker-path1",
+      "type": "validator",
+      "displayName": "2 ETH STAKE",
+      "status": "mainnet",
+      "entryDescription": "Requires 2 ETH bond - no application or KYC needed",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 8,
+            "ramGb": 16,
+            "storageGb": 2000,
+            "storageMedia": "SSD",
+            "upMbps": 25,
+            "downMbps": 25,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "Permissionless setup.",
+              "Protocol provides remaining 30 ETH.",
+              "Operators earn standard staking rewards plus EigenLayer restaking rewards through eETH value accrual."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "etherfi-solo-staker-path2",
+      "type": "validator",
+      "displayName": "INSTITUTIONAL",
+      "status": "mainnet",
+      "entryDescription": "Requires application, KYC, technical competence verification, and 2-year commitment",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissioned",
+          "hardware": {
+            "cpuCores": 8,
+            "ramGb": 16,
+            "storageGb": 2000,
+            "storageMedia": "SSD",
+            "upMbps": 25,
+            "downMbps": 25,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "No ETH bond required.",
+              "EtherFi provides full 32 ETH per validator.",
+              "Can provide hardware via 2-year payment plan or bring your own.",
+              "Operators earn 5% of rewards across 10-15 validators.",
+              "Uses Obol DVT for slashing protection.",
+              "Applications actively accepted."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

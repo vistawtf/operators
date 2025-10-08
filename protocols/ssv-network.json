@@ -1,0 +1,56 @@
+{
+  "id": "ssv-network",
+  "name": "SSV Network",
+  "website": "https://ssv.network",
+  "description": "SSV Network is a decentralized validator infrastructure protocol (DVT) operational on mainnet since 2022-2023 with 20,000+ validators running across 250+ operators. Operators run SSV nodes with no ETH bond required, earning SSV token fees from validator owners who pay for distributed validator clusters (typically 4 operators per validator). Incentivized Mainnet Program runs until December 31, 2025.",
+  "documentation": "https://docs.ssv.network/",
+  "isActive": true,
+  "tags": [
+    "DVT",
+    "Mainnet",
+    "Permissionless"
+  ],
+  "docsIntegration": [
+    {
+      "text": "Documentation at https://docs.ssv.network/ covering DVT mechanics, operator guides, and API references"
+    },
+    {
+      "text": "Two-sided marketplace: validator owners pay operators in SSV tokens (typically 1-1.5 SSV/validator/year for verified operators)"
+    },
+    {
+      "text": "Optional Verified Operator status requires KYC/KYB for enhanced trust. Incentivized Mainnet Program ends December 31, 2025."
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "ssv-operator",
+      "type": "dvt_operator",
+      "status": "mainnet",
+      "requirements": [
+        {
+          "tier": "minimum",
+          "entry": "permissionless",
+          "hardware": {
+            "cpuCores": 4,
+            "ramGb": 16,
+            "storageGb": 2000,
+            "storageMedia": "NVME",
+            "upMbps": 100,
+            "downMbps": 100,
+            "staticIpPreferred": true,
+            "upsRequired": false,
+            "notes": [
+              "No ETH bond required",
+              "Must stake SSV tokens for network fees and slashing insurance",
+              "Operators set fees in SSV tokens (typically 1-1.5 SSV/validator/year)",
+              "Earnings depend on attracting validator owners",
+              "Permissionless registration, no KYC unless wanting Verified Operator status",
+              "Many operators moved from 4-core to 8-core in 2025 as network scaled",
+              "Incentivized Mainnet Program ends Dec 31, 2025"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

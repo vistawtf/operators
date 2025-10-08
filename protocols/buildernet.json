@@ -5,7 +5,10 @@
   "description": "Buildernet is an MEV-focused Layer 2 solution designed to optimize transaction ordering and maximize value extraction opportunities. Operators run sequencers that efficiently order transactions while capturing MEV rewards. The protocol aims to create a more efficient and profitable environment for both users and operators in the MEV landscape.",
   "documentation": "https://docs.buildernet.org",
   "isActive": true,
-  "tags": ["L2", "MEV"],
+  "tags": [
+    "L2",
+    "MEV"
+  ],
   "docsIntegration": [
     {
       "text": "Buildernet sequencer documentation covers MEV extraction strategies and optimal transaction ordering"
@@ -33,8 +36,7 @@
             "upMbps": 100,
             "downMbps": 100,
             "staticIpPreferred": false,
-            "upsRequired": false,
-            "notes": "No stake required"
+            "upsRequired": false
           }
         }
       ]

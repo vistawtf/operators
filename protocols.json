@@ -1,37 +1,179 @@
 {
   "protocols": [
     {
+      "id": "avail",
+      "name": "Avail Project",
+      "website": "https://availproject.org",
+      "description": "Avail is a modular blockchain focused on data availability (DA) and scalability. Mainnet launched July 23, 2024 with 105 active validators (March 2025), targeting growth to 1,000 initially. Uses Nominated Proof of Stake (NPoS) with validators elected each era. Direct nomination requires 1,000 AVAIL minimum, nomination pools 100 AVAIL. No slashing. Room for validator expansion.",
+      "documentation": "https://docs.availproject.org/",
+      "isActive": true,
+      "tags": [
+        "Data-Availability",
+        "Mainnet",
+        "Permissionless"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://docs.availproject.org/ with validator setup, light client guide, and developer tools"
+        },
+        {
+          "text": "Integrations: Optimism, Arbitrum Orbit, zkSync rollups. SDKs: Rust SDK, Turbo DA for high-throughput apps"
+        },
+        {
+          "text": "AVAIL token airdrop completed 2024. No new airdrop active October 2025. No slashing mechanism - lower operational risk."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "avail-validator",
+          "type": "validator",
+          "status": "mainnet",
+          "entryDescription": "Minimum 1,000 AVAIL for direct nomination (or 100 AVAIL via nomination pools)",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 4,
+                "ramGb": 8,
+                "storageGb": 500,
+                "storageMedia": "NVME",
+                "upMbps": 50,
+                "downMbps": 50,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "Validator: 1,000 AVAIL minimum for direct nomination.",
+                  "No KYC, no waitlist, no slashing.",
+                  "Lower hardware requirements than Ethereum.",
+                  "Earn staking rewards proportional to active stake + DA fees in AVAIL.",
+                  "Purely stake-based election."
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "avail-light-client",
+          "type": "light_client",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 1,
+                "ramGb": 4,
+                "storageGb": 50,
+                "storageMedia": "SSD",
+                "upMbps": 10,
+                "downMbps": 10,
+                "staticIpPreferred": false,
+                "upsRequired": false,
+                "notes": [
+                  "Light Client: Minimal resources required (1-2 cores).",
+                  "4x more efficient than Ethereum.",
+                  "1MB/s network usage.",
+                  "Runs on mobile devices, laptops.",
+                  "Data Availability Sampling participant.",
+                  "No economic rewards - contribution to DA security only."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "aztec",
       "name": "Aztec",
       "website": "https://aztec.network",
-      "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs.",
+      "description": "Aztec is a privacy-first Layer 2 (L2) solution built on Ethereum. Its primary purpose is to bring privacy to the otherwise publicly visible transactions on the Ethereum blockchain. Aztec achieves this by operating as a new alternative virtual machine (alt-VM), diverging from EVM compatibility to extend the Ethereum ecosystem with private smart contracts using zero-knowledge proofs. Currently in Adversarial Testnet with 23,000+ operators.",
       "documentation": "https://docs.aztec.network",
       "isActive": true,
       "tags": [
         "L2",
         "Privacy",
-        "ZK"
+        "ZK",
+        "Testnet"
       ],
       "docsIntegration": [
         {
-          "text": "Official documentation for operators (running sequencers, full nodes, provers) is available"
+          "text": "Official documentation for operators (running sequencers, full nodes, provers) available at https://docs.aztec.network/the_aztec_network/guides/run_nodes"
         },
         {
           "text": "Integrations/tools include Aztec.js (library to interact with contracts) and Aztec.nr (Noir framework for private smart contracts). The network uses Noir for zk circuits."
+        },
+        {
+          "text": "Setup time: 30-60 minutes. Monthly cost: $20-130 for VPS. Slashing active (3 strikes), home-staker friendly with 20min downtime protection."
         }
       ],
       "opportunities": [
+        {
+          "id": "aztec-sequencer",
+          "type": "sequencer",
+          "status": "testnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 16,
+                "storageGb": 1000,
+                "storageMedia": "SSD",
+                "upMbps": 25,
+                "downMbps": 25,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "No GPU required",
+                  "Port 40400 must be forwarded.",
+                  "Requires 0.1 ETH Sepolia (free from faucets).",
+                  "ZKPassport verification required.",
+                  "Daily throttling ~75 new validators."
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "aztec-full-node",
+          "type": "full_node",
+          "status": "testnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 16,
+                "storageGb": 1000,
+                "storageMedia": "SSD",
+                "upMbps": 25,
+                "downMbps": 25,
+                "staticIpPreferred": false,
+                "upsRequired": false,
+                "notes": [
+                  "No GPU required",
+                  "Most private way to interact with Aztec",
+                  "Requires L1 RPC endpoints with blob support."
+                ]
+              }
+            }
+          ]
+        },
         {
           "id": "aztec-prover",
           "type": "prover",
           "status": "testnet",
           "requirements": [
             {
-              "tier": "recommended",
+              "tier": "institutional",
               "entry": "permissionless",
               "hardware": {
-                "cpuCores": 8,
-                "ramGb": 32,
+                "cpuCores": 16,
+                "ramGb": 128,
                 "storageGb": 1000,
                 "storageMedia": "NVME",
                 "iopsRead": 50000,
@@ -40,24 +182,13 @@
                 "downMbps": 100,
                 "staticIpPreferred": true,
                 "upsRequired": false,
-                "notes": "GPU acceleration recommended for proving"
-              }
-            },
-            {
-              "tier": "minimum",
-              "entry": "permissionless",
-              "hardware": {
-                "cpuCores": 4,
-                "ramGb": 16,
-                "storageGb": 500,
-                "storageMedia": "SSD",
-                "iopsRead": 20000,
-                "iopsWrite": 15000,
-                "upMbps": 50,
-                "downMbps": 50,
-                "staticIpPreferred": false,
-                "upsRequired": false,
-                "notes": "Basic setup for testing"
+                "notes": [
+                  "NO GPU needed (CPU-based proving).",
+                  "Full setup requires ~40 machines @ 16 cores/128GB each.",
+                  "Monthly cost $10,000+",
+                  "NO active incentive program.",
+                  "Network throttled to 0.2 TPS."
+                ]
               }
             }
           ]
@@ -102,8 +233,144 @@
                 "upMbps": 100,
                 "downMbps": 100,
                 "staticIpPreferred": false,
+                "upsRequired": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "celestia",
+      "name": "Celestia",
+      "website": "https://celestia.org",
+      "description": "Celestia is a modular blockchain specializing in data availability (DA). Mainnet Beta launched October 2023 with 100 validator slots in active set. Light nodes are extremely accessible (run on mobile devices) and critical for Data Availability Sampling security model. Foundation Delegation Program provides path to validator participation via 4-month application cycles with 12-month delegations.",
+      "documentation": "https://docs.celestia.org/",
+      "isActive": true,
+      "tags": [
+        "Data-Availability",
+        "Mainnet",
+        "Modular-Blockchain"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://docs.celestia.org/ covering node setup, DAS mechanics, and rollup integration"
+        },
+        {
+          "text": "Foundation Delegation Program Cohort 5 opened June 1, 2025. Cohort 6 expected late 2025/early 2026."
+        },
+        {
+          "text": "Light nodes conduct Data Availability Sampling (DAS) and run on mobile devices - no economic rewards but critical for DA security."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "celestia-validator",
+          "type": "validator",
+          "status": "mainnet",
+          "entryDescription": "Need hundreds of thousands to millions of TIA delegated to reach top 100 active set",
+          "requirements": [
+            {
+              "tier": "institutional",
+              "entry": "permissioned",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 32,
+                "storageGb": 2000,
+                "storageMedia": "NVME",
+                "upMbps": 100,
+                "downMbps": 100,
+                "staticIpPreferred": true,
+                "upsRequired": true,
+                "notes": [
+                  "Active set limited to 100 validators.",
+                  "Foundation Delegation Program offers path via application (KYC, 1+ month testnet operation, non-Hetzner/OVH hosting, 99%+ uptime).",
+                  "Archival bridge nodes required.",
+                  "Earn 3-4% staking APY + blob fees."
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "celestia-light-node",
+          "type": "light_node",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 1,
+                "ramGb": 2,
+                "storageGb": 25,
+                "storageMedia": "SSD",
+                "upMbps": 25,
+                "downMbps": 25,
+                "staticIpPreferred": false,
                 "upsRequired": false,
-                "notes": "No stake required"
+                "notes": [
+                  "Light Node: Runs on mobile devices, laptops, smartwatches.",
+                  "Conducts Data Availability Sampling (DAS) critical for network security.",
+                  "No economic rewards - contribution to DA security model only.",
+                  "Important for modular blockchain architecture validation."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "commit-boost",
+      "name": "Commit-Boost",
+      "website": "https://commit-boost.org",
+      "description": "Commit-Boost is an open-source validator sidecar installed alongside Ethereum validators to enable participation in proposer commitment protocols (preconfirmations, inclusion lists). Used by 20% of Ethereum mainnet validators as of August 2025. This is infrastructure software, not a staking protocol - requires no token, no collateral beyond the 32 ETH your validator already has.",
+      "documentation": "https://commit-boost.github.io/commit-boost-client/",
+      "isActive": true,
+      "tags": [
+        "Infrastructure",
+        "MEV",
+        "Mainnet"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://commit-boost.github.io/commit-boost-client/ with node operator and developer guides"
+        },
+        {
+          "text": "Modular architecture supports mev-commit, Bolt Protocol, Tai-yi, inclusion lists via il-boost. MEV-Boost replacement with per-key relay configuration."
+        },
+        {
+          "text": "Major operators using it: P2P.org, Stakely, Chorus One. No native token, no airdrop - public good maintained by not-for-profit entity."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "commit-boost-sidecar",
+          "type": "infrastructure_tool",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 0,
+                "ramGb": 1,
+                "storageGb": 10,
+                "storageMedia": "SSD",
+                "upMbps": 0,
+                "downMbps": 0,
+                "staticIpPreferred": false,
+                "upsRequired": false,
+                "notes": [
+                  "Negligible overhead (<5% CPU, <1GB RAM, <10GB storage).",
+                  "Installs alongside existing Ethereum validator.",
+                  "No additional hardware needed beyond your validator node.",
+                  "Enables preconfirmation rewards from modules like mev-commit, Bolt, Espresso.",
+                  "Installation via binary, Docker, or Kubernetes Helm Chart.",
+                  "No token, no stake required.",
+                  "Free upgrade for all validators."
+                ]
               }
             }
           ]
@@ -148,8 +415,93 @@
                 "upMbps": 1000,
                 "downMbps": 1000,
                 "staticIpPreferred": true,
-                "upsRequired": true,
-                "notes": "Must be in top 200 operators by stake"
+                "upsRequired": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "etherfi",
+      "name": "EtherFi",
+      "website": "https://ether.fi",
+      "description": "EtherFi is a liquid staking protocol with $3.26B+ TVL. Operation Solo Staker program offers zero-bond entry for accepted applicants using DVT (Obol for Solo Stakers, SSV for professional operators) to eliminate slashing risk. 40+ operators across multiple cohorts. Path 1 requires 2 ETH bond without application. Path 2 (zero-bond) requires application, KYC, and 2-year commitment.",
+      "documentation": "https://etherfi.gitbook.io/",
+      "isActive": true,
+      "tags": [
+        "LST",
+        "LRT",
+        "Mainnet",
+        "DVT"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://etherfi.gitbook.io/ covering staking, node operation, and Operation Solo Staker program"
+        },
+        {
+          "text": "Uses Obol DVT for Solo Stakers and SSV for professional operators. EigenLayer restaking activated October 15, 2025."
+        },
+        {
+          "text": "ETHFI Season 2 active with $7M buyback program. 5% operator share on 10-15 validators with quarterly payouts."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "etherfi-solo-staker-path1",
+          "type": "validator",
+          "displayName": "2 ETH STAKE",
+          "status": "mainnet",
+          "entryDescription": "Requires 2 ETH bond - no application or KYC needed",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 16,
+                "storageGb": 2000,
+                "storageMedia": "SSD",
+                "upMbps": 25,
+                "downMbps": 25,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "Permissionless setup.",
+                  "Protocol provides remaining 30 ETH.",
+                  "Operators earn standard staking rewards plus EigenLayer restaking rewards through eETH value accrual."
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "etherfi-solo-staker-path2",
+          "type": "validator",
+          "displayName": "INSTITUTIONAL",
+          "status": "mainnet",
+          "entryDescription": "Requires application, KYC, technical competence verification, and 2-year commitment",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissioned",
+              "hardware": {
+                "cpuCores": 8,
+                "ramGb": 16,
+                "storageGb": 2000,
+                "storageMedia": "SSD",
+                "upMbps": 25,
+                "downMbps": 25,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "No ETH bond required.",
+                  "EtherFi provides full 32 ETH per validator.",
+                  "Can provide hardware via 2-year payment plan or bring your own.",
+                  "Operators earn 5% of rewards across 10-15 validators.",
+                  "Uses Obol DVT for slashing protection.",
+                  "Applications actively accepted."
+                ]
               }
             }
           ]
@@ -194,8 +546,231 @@
                 "upMbps": 100,
                 "downMbps": 100,
                 "staticIpPreferred": true,
-                "upsRequired": true,
-                "notes": "Requires 32 ETH stake"
+                "upsRequired": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "puffer-finance",
+      "name": "Puffer Finance",
+      "website": "https://puffer.fi",
+      "description": "Puffer is a native liquid restaking protocol on EigenLayer with 500,000+ ETH deposited and 5,000+ node operators registered. Current NoOps model requires 2 ETH bond (converted to pufETH earning restaking yield) plus minimum 28 Validator Tickets (VTs). Operators retain 100% of consensus/execution rewards plus EigenLayer AVS rewards. Season 2 points program active.",
+      "documentation": "https://docs.puffer.fi/",
+      "isActive": true,
+      "tags": [
+        "LRT",
+        "Mainnet",
+        "EigenLayer"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://docs.puffer.fi/ covering node requirements, VT system, and pufETH mechanics"
+        },
+        {
+          "text": "VT (Validator Ticket) system: 1 VT burns per day while operating. Minimum 7 VTs maintained or face ejection. VTs are ERC-20 tradeable tokens."
+        },
+        {
+          "text": "Originally-planned 1 ETH bond option using Secure-Signer (TEE) unavailable on mainnet as of October 2025. Puffer V2 plans minimal pufETH collateral."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "puffer-noops",
+          "type": "validator",
+          "status": "mainnet",
+          "entryDescription": "Requires 2 ETH bond (converted to pufETH) + minimum 28 Validator Tickets (~0.8 ETH)",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 4,
+                "ramGb": 16,
+                "storageGb": 2000,
+                "storageMedia": "SSD",
+                "upMbps": 25,
+                "downMbps": 25,
+                "staticIpPreferred": false,
+                "upsRequired": false,
+                "notes": [
+                  "Total entry ~2.8 ETH. Protocol provides remaining 30 ETH.",
+                  "1 VT burns per day, minimum 7 VTs maintained.",
+                  "Operators earn 100% of consensus/execution rewards plus EigenLayer restaking rewards.",
+                  "Season 2 active with 3x multiplier.",
+                  "No KYC.",
+                  "VTs are ERC-20 tradeable."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rocket-pool",
+      "name": "Rocket Pool",
+      "website": "https://rocketpool.net",
+      "description": "Rocket Pool is a decentralized Ethereum staking protocol with 4,016 node operators running 19,024 minipools. Saturn 0 upgrade (October 28, 2024) made RPL collateral optional, enabling ETH-only minipools with 8 ETH bond earning 5% base commission. Saturn 1 upgrade launching January 19, 2026 will introduce 4 ETH minipools (LEB4).",
+      "documentation": "https://docs.rocketpool.net/",
+      "isActive": true,
+      "tags": [
+        "LST",
+        "Mainnet",
+        "Permissionless"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Comprehensive documentation at https://docs.rocketpool.net/ with Smart Node setup, minipool management, and migration guides"
+        },
+        {
+          "text": "Optional Smoothing Pool socializes MEV and EL rewards across participants for consistent payouts every 28 days"
+        },
+        {
+          "text": "Saturn 1 upgrade (January 19, 2026) introduces 4 ETH minipools with Megapools for easier management. Saturn 2 will offer 1.5 ETH bonds."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "rocket-pool-minipool-operator",
+          "type": "minipool_operator",
+          "status": "mainnet",
+          "entryDescription": "Requires 8 ETH bond + 0.1 ETH for gas (total 8.1 ETH)",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 4,
+                "ramGb": 16,
+                "storageGb": 2000,
+                "storageMedia": "NVME",
+                "upMbps": 10,
+                "downMbps": 10,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "ETH-only minipools earn 5% base commission on 24 ETH borrowed from protocol",
+                  "Optional RPL staking (10-15% of borrowed ETH) increases commission to 10-14% plus RPL inflation rewards",
+                  "No KYC, no waitlist",
+                  "Operational since November 2021 with proven track record",
+                  "Saturn 1 (January 19, 2026) reduces minimum to 4 ETH"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ssv-network",
+      "name": "SSV Network",
+      "website": "https://ssv.network",
+      "description": "SSV Network is a decentralized validator infrastructure protocol (DVT) operational on mainnet since 2022-2023 with 20,000+ validators running across 250+ operators. Operators run SSV nodes with no ETH bond required, earning SSV token fees from validator owners who pay for distributed validator clusters (typically 4 operators per validator). Incentivized Mainnet Program runs until December 31, 2025.",
+      "documentation": "https://docs.ssv.network/",
+      "isActive": true,
+      "tags": [
+        "DVT",
+        "Mainnet",
+        "Permissionless"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://docs.ssv.network/ covering DVT mechanics, operator guides, and API references"
+        },
+        {
+          "text": "Two-sided marketplace: validator owners pay operators in SSV tokens (typically 1-1.5 SSV/validator/year for verified operators)"
+        },
+        {
+          "text": "Optional Verified Operator status requires KYC/KYB for enhanced trust. Incentivized Mainnet Program ends December 31, 2025."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "ssv-operator",
+          "type": "dvt_operator",
+          "status": "mainnet",
+          "requirements": [
+            {
+              "tier": "minimum",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 4,
+                "ramGb": 16,
+                "storageGb": 2000,
+                "storageMedia": "NVME",
+                "upMbps": 100,
+                "downMbps": 100,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "No ETH bond required",
+                  "Must stake SSV tokens for network fees and slashing insurance",
+                  "Operators set fees in SSV tokens (typically 1-1.5 SSV/validator/year)",
+                  "Earnings depend on attracting validator owners",
+                  "Permissionless registration, no KYC unless wanting Verified Operator status",
+                  "Many operators moved from 4-core to 8-core in 2025 as network scaled",
+                  "Incentivized Mainnet Program ends Dec 31, 2025"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "succinct",
+      "name": "Succinct",
+      "website": "https://succinct.xyz",
+      "description": "Succinct launched mainnet August 5, 2025 as a decentralized ZK prover network with 35+ protocols supported, 1,700+ unique programs, and 5M+ proofs fulfilled securing $4B+ value. Provers compete in reverse auction system earning PROVE tokens. Fully permissionless with 1,000 PROVE minimum stake (~$1,000+). Reference implementation available but competitive proving requires GPU clusters and custom optimization.",
+      "documentation": "https://docs.succinct.xyz/",
+      "isActive": true,
+      "tags": [
+        "ZK",
+        "Prover",
+        "Mainnet",
+        "GPU-Required"
+      ],
+      "docsIntegration": [
+        {
+          "text": "Documentation at https://docs.succinct.xyz/ with prover quickstart, SP1 zkVM guides, and network architecture"
+        },
+        {
+          "text": "Reference implementation available but explicitly 'not competitive with actively optimized provers'. Professional setups use multiple NVIDIA L4s, L40s, 3090s, or 4090s."
+        },
+        {
+          "text": "PROVE token launched August 5, 2025. Binance airdrop (15M tokens, 1.5% supply) completed July 18-21, 2025 for BNB stakers."
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "succinct-prover-competitive",
+          "type": "zk_prover",
+          "status": "mainnet",
+          "entryDescription": "Requires 1,000 PROVE tokens staked (~$1,000+)",
+          "requirements": [
+            {
+              "tier": "institutional",
+              "entry": "permissionless",
+              "hardware": {
+                "cpuCores": 16,
+                "ramGb": 64,
+                "storageGb": 1000,
+                "storageMedia": "NVME",
+                "upMbps": 1000,
+                "downMbps": 1000,
+                "staticIpPreferred": true,
+                "upsRequired": false,
+                "notes": [
+                  "Competitive Production Setup: Multiple NVIDIA L4s, L40s, 3090s, or 4090s in coordinated GPU clusters.",
+                  "Custom optimization required.",
+                  "Data center infrastructure.",
+                  "Estimated $10,000-50,000+ for hardware plus electricity.",
+                  "Professional proving operation only.",
+                  "Provers compete in reverse auction, must win bids to earn fees."
+                ]
               }
             }
           ]
@@ -203,5 +778,5 @@
       ]
     }
   ],
-  "lastUpdated": "2025-09-25T16:50:00.000Z"
+  "lastUpdated": "2025-10-08T03:13:15.572Z"
 }
