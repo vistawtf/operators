@@ -2,7 +2,7 @@
   "id": "puffer-finance",
   "name": "Puffer Finance",
   "website": "https://puffer.fi",
-  "description": "Puffer is a native liquid restaking protocol on EigenLayer with 500,000+ ETH deposited and 5,000+ node operators registered. Current NoOps model requires 2 ETH bond (converted to pufETH earning restaking yield) plus minimum 28 Validator Tickets (VTs). Operators retain 100% of consensus/execution rewards plus EigenLayer AVS rewards. Season 2 points program active.",
+  "description": "Puffer is a decentralized native liquid restaking protocol (nLRP) built on Eigenlayer, it makes native restaking on Eigenlayer more accessible, allowing anyone to run an Ethereum Proof of Stake (PoS) validator while supercharging their rewards.",
   "documentation": "https://docs.puffer.fi/",
   "isActive": true,
   "tags": [

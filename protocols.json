@@ -4,7 +4,7 @@
       "id": "avail",
       "name": "Avail Project",
       "website": "https://availproject.org",
-      "description": "Avail is a modular blockchain focused on data availability (DA) and scalability. Mainnet launched July 23, 2024 with 105 active validators (March 2025), targeting growth to 1,000 initially. Uses Nominated Proof of Stake (NPoS) with validators elected each era. Direct nomination requires 1,000 AVAIL minimum, nomination pools 100 AVAIL. No slashing. Room for validator expansion.",
+      "description": "Avail aims to accelerate the unification of Web3 using its cutting edge modular technology stack that combines data availability, aggregation, and shared security.",
       "documentation": "https://docs.availproject.org/",
       "isActive": true,
       "tags": [
@@ -244,7 +244,7 @@
       "id": "celestia",
       "name": "Celestia",
       "website": "https://celestia.org",
-      "description": "Celestia is a modular blockchain specializing in data availability (DA). Mainnet Beta launched October 2023 with 100 validator slots in active set. Light nodes are extremely accessible (run on mobile devices) and critical for Data Availability Sampling security model. Foundation Delegation Program provides path to validator participation via 4-month application cycles with 12-month delegations.",
+      "description": "Celestia is a modular blockchain specializing in data availability (DA). Light nodes are extremely accessible (even on mobile devices) and critical for Data Availability Sampling security model.",
       "documentation": "https://docs.celestia.org/",
       "isActive": true,
       "tags": [
@@ -325,7 +325,7 @@
       "id": "commit-boost",
       "name": "Commit-Boost",
       "website": "https://commit-boost.org",
-      "description": "Commit-Boost is an open-source validator sidecar installed alongside Ethereum validators to enable participation in proposer commitment protocols (preconfirmations, inclusion lists). Used by 20% of Ethereum mainnet validators as of August 2025. This is infrastructure software, not a staking protocol - requires no token, no collateral beyond the 32 ETH your validator already has.",
+      "description": "Commit-Boost is an open-source Ethereum validator sidecar. It standardizes communication between validators and third-party protocols, acting as a light, MEV-Boost compatible platform. This enables validators to safely make commitments, including participating in preconfs to potentially boost yield.",
       "documentation": "https://commit-boost.github.io/commit-boost-client/",
       "isActive": true,
       "tags": [
@@ -426,7 +426,7 @@
       "id": "etherfi",
       "name": "EtherFi",
       "website": "https://ether.fi",
-      "description": "EtherFi is a liquid staking protocol with $3.26B+ TVL. Operation Solo Staker program offers zero-bond entry for accepted applicants using DVT (Obol for Solo Stakers, SSV for professional operators) to eliminate slashing risk. 40+ operators across multiple cohorts. Path 1 requires 2 ETH bond without application. Path 2 (zero-bond) requires application, KYC, and 2-year commitment.",
+      "description": "EtherFi is a liquid staking protocol with $3.26B+ TVL. Operation Solo Staker program offers zero-bond entry for accepted applicants using DVT (Obol for Solo Stakers, SSV for professional operators) to eliminate slashing risk. 40+ operators across multiple cohorts.",
       "documentation": "https://etherfi.gitbook.io/",
       "isActive": true,
       "tags": [
@@ -557,7 +557,7 @@
       "id": "puffer-finance",
       "name": "Puffer Finance",
       "website": "https://puffer.fi",
-      "description": "Puffer is a native liquid restaking protocol on EigenLayer with 500,000+ ETH deposited and 5,000+ node operators registered. Current NoOps model requires 2 ETH bond (converted to pufETH earning restaking yield) plus minimum 28 Validator Tickets (VTs). Operators retain 100% of consensus/execution rewards plus EigenLayer AVS rewards. Season 2 points program active.",
+      "description": "Puffer is a decentralized native liquid restaking protocol (nLRP) built on Eigenlayer, it makes native restaking on Eigenlayer more accessible, allowing anyone to run an Ethereum Proof of Stake (PoS) validator while supercharging their rewards.",
       "documentation": "https://docs.puffer.fi/",
       "isActive": true,
       "tags": [
@@ -613,7 +613,7 @@
       "id": "rocket-pool",
       "name": "Rocket Pool",
       "website": "https://rocketpool.net",
-      "description": "Rocket Pool is a decentralized Ethereum staking protocol with 4,016 node operators running 19,024 minipools. Saturn 0 upgrade (October 28, 2024) made RPL collateral optional, enabling ETH-only minipools with 8 ETH bond earning 5% base commission. Saturn 1 upgrade launching January 19, 2026 will introduce 4 ETH minipools (LEB4).",
+      "description": "Rocket Pool is a decentralized Ethereum staking protocol that enables users to stake ETH without requiring the full 32 ETH validator threshold. It combines pooled staking with a trustless node operator network, allowing users to participate as stakers (via the liquid staking token rETH) or node operators (by running minipools).",
       "documentation": "https://docs.rocketpool.net/",
       "isActive": true,
       "tags": [
@@ -668,7 +668,7 @@
       "id": "ssv-network",
       "name": "SSV Network",
       "website": "https://ssv.network",
-      "description": "SSV Network is a decentralized validator infrastructure protocol (DVT) operational on mainnet since 2022-2023 with 20,000+ validators running across 250+ operators. Operators run SSV nodes with no ETH bond required, earning SSV token fees from validator owners who pay for distributed validator clusters (typically 4 operators per validator). Incentivized Mainnet Program runs until December 31, 2025.",
+      "description": "SSV Network is a decentralized validator infrastructure protocol designed to enable secure and trustless staking for Ethereum and other PoS blockchains. Operators run SSV nodes with no ETH bond required, earning SSV token fees from validator owners who pay for distributed validator clusters (typically 4 operators per validator).",
       "documentation": "https://docs.ssv.network/",
       "isActive": true,
       "tags": [
@@ -724,7 +724,7 @@
       "id": "succinct",
       "name": "Succinct",
       "website": "https://succinct.xyz",
-      "description": "Succinct launched mainnet August 5, 2025 as a decentralized ZK prover network with 35+ protocols supported, 1,700+ unique programs, and 5M+ proofs fulfilled securing $4B+ value. Provers compete in reverse auction system earning PROVE tokens. Fully permissionless with 1,000 PROVE minimum stake (~$1,000+). Reference implementation available but competitive proving requires GPU clusters and custom optimization.",
+      "description": "Succinct is building a decentralized prover network that enables blockchain applications to be secured by cryptographic truth rather than trust-based systems.",
       "documentation": "https://docs.succinct.xyz/",
       "isActive": true,
       "tags": [
@@ -778,5 +778,5 @@
       ]
     }
   ],
-  "lastUpdated": "2025-10-08T04:09:57.212Z"
+  "lastUpdated": "2025-10-08T17:02:32.013Z"
 }

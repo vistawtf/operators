@@ -2,7 +2,7 @@
   "id": "rocket-pool",
   "name": "Rocket Pool",
   "website": "https://rocketpool.net",
-  "description": "Rocket Pool is a decentralized Ethereum staking protocol with 4,016 node operators running 19,024 minipools. Saturn 0 upgrade (October 28, 2024) made RPL collateral optional, enabling ETH-only minipools with 8 ETH bond earning 5% base commission. Saturn 1 upgrade launching January 19, 2026 will introduce 4 ETH minipools (LEB4).",
+  "description": "Rocket Pool is a decentralized Ethereum staking protocol that enables users to stake ETH without requiring the full 32 ETH validator threshold. It combines pooled staking with a trustless node operator network, allowing users to participate as stakers (via the liquid staking token rETH) or node operators (by running minipools).",
   "documentation": "https://docs.rocketpool.net/",
   "isActive": true,
   "tags": [

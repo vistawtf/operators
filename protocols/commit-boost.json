@@ -2,7 +2,7 @@
   "id": "commit-boost",
   "name": "Commit-Boost",
   "website": "https://commit-boost.org",
-  "description": "Commit-Boost is an open-source validator sidecar installed alongside Ethereum validators to enable participation in proposer commitment protocols (preconfirmations, inclusion lists). Used by 20% of Ethereum mainnet validators as of August 2025. This is infrastructure software, not a staking protocol - requires no token, no collateral beyond the 32 ETH your validator already has.",
+  "description": "Commit-Boost is an open-source Ethereum validator sidecar. It standardizes communication between validators and third-party protocols, acting as a light, MEV-Boost compatible platform. This enables validators to safely make commitments, including participating in preconfs to potentially boost yield.",
   "documentation": "https://commit-boost.github.io/commit-boost-client/",
   "isActive": true,
   "tags": [

@@ -2,7 +2,7 @@
   "id": "avail",
   "name": "Avail Project",
   "website": "https://availproject.org",
-  "description": "Avail is a modular blockchain focused on data availability (DA) and scalability. Mainnet launched July 23, 2024 with 105 active validators (March 2025), targeting growth to 1,000 initially. Uses Nominated Proof of Stake (NPoS) with validators elected each era. Direct nomination requires 1,000 AVAIL minimum, nomination pools 100 AVAIL. No slashing. Room for validator expansion.",
+  "description": "Avail aims to accelerate the unification of Web3 using its cutting edge modular technology stack that combines data availability, aggregation, and shared security.",
   "documentation": "https://docs.availproject.org/",
   "isActive": true,
   "tags": [

@@ -2,7 +2,7 @@
   "id": "celestia",
   "name": "Celestia",
   "website": "https://celestia.org",
-  "description": "Celestia is a modular blockchain specializing in data availability (DA). Mainnet Beta launched October 2023 with 100 validator slots in active set. Light nodes are extremely accessible (run on mobile devices) and critical for Data Availability Sampling security model. Foundation Delegation Program provides path to validator participation via 4-month application cycles with 12-month delegations.",
+  "description": "Celestia is a modular blockchain specializing in data availability (DA). Light nodes are extremely accessible (even on mobile devices) and critical for Data Availability Sampling security model.",
   "documentation": "https://docs.celestia.org/",
   "isActive": true,
   "tags": [

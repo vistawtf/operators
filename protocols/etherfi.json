@@ -2,7 +2,7 @@
   "id": "etherfi",
   "name": "EtherFi",
   "website": "https://ether.fi",
-  "description": "EtherFi is a liquid staking protocol with $3.26B+ TVL. Operation Solo Staker program offers zero-bond entry for accepted applicants using DVT (Obol for Solo Stakers, SSV for professional operators) to eliminate slashing risk. 40+ operators across multiple cohorts. Path 1 requires 2 ETH bond without application. Path 2 (zero-bond) requires application, KYC, and 2-year commitment.",
+  "description": "EtherFi is a liquid staking protocol with $3.26B+ TVL. Operation Solo Staker program offers zero-bond entry for accepted applicants using DVT (Obol for Solo Stakers, SSV for professional operators) to eliminate slashing risk. 40+ operators across multiple cohorts.",
   "documentation": "https://etherfi.gitbook.io/",
   "isActive": true,
   "tags": [
@@ -70,7 +70,7 @@
             "downMbps": 25,
             "staticIpPreferred": true,
             "upsRequired": false,
-            "notes": [
+            "notes": [ 
               "No ETH bond required.",
               "EtherFi provides full 32 ETH per validator.",
               "Can provide hardware via 2-year payment plan or bring your own.",

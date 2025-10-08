@@ -2,7 +2,7 @@
   "id": "succinct",
   "name": "Succinct",
   "website": "https://succinct.xyz",
-  "description": "Succinct launched mainnet August 5, 2025 as a decentralized ZK prover network with 35+ protocols supported, 1,700+ unique programs, and 5M+ proofs fulfilled securing $4B+ value. Provers compete in reverse auction system earning PROVE tokens. Fully permissionless with 1,000 PROVE minimum stake (~$1,000+). Reference implementation available but competitive proving requires GPU clusters and custom optimization.",
+  "description": "Succinct is building a decentralized prover network that enables blockchain applications to be secured by cryptographic truth rather than trust-based systems.",
   "documentation": "https://docs.succinct.xyz/",
   "isActive": true,
   "tags": [
