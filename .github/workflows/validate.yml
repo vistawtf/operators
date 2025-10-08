@@ -89,7 +89,19 @@ jobs:
       - name: Validate SVG Structure
         run: |
           echo "🎨 Validating SVG files..."
-          for svg in logos/*.svg 2>/dev/null; do
+
+          # Check if any SVG files exist
+          if ! ls logos/*.svg 1> /dev/null 2>&1; then
+            echo "⚠️  No SVG files found"
+            exit 0
+          fi
+
+          # Install xmllint
+          sudo apt-get update -qq
+          sudo apt-get install -y libxml2-utils
+
+          # Validate each SVG
+          for svg in logos/*.svg; do
             if [ -f "$svg" ]; then
               if ! xmllint --noout "$svg" 2>/dev/null; then
                 echo "❌ Invalid XML/SVG structure in $svg"
